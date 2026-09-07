@@ -521,7 +521,7 @@
 <!-- BOTTOM FLOATING DOCK -->
 <div class="nav-tabs">
   <button class="nav-tab active" onclick="showPage('home')"><span>Home</span></button>
-  <button class="nav-tab" onclick="requireAuth(() => showPage('map'))"><span>Map</span></button>
+  <button class="nav-tab" onclick="showPage('map')"><span>Map</span></button>
   <button class="nav-tab" onclick="requireAuth(() => showPage('list'))"><span>List</span></button>
   <button class="nav-tab" onclick="showPage('board')"><span>Board</span></button>
 </div>
@@ -569,7 +569,7 @@
       <p id="map-loading-msg">Loading Chabad Houses…</p>
     </div>
     <div class="map-status" id="map-status" style="display:none;">
-      <span>Data: <strong>OSM</strong> via Overpass</span>
+      <span>Data: <strong>Repository JSON</strong></span>
       <span id="map-count-label">Loading…</span>
     </div>
   </div>
@@ -620,7 +620,7 @@
     <button class="modal-close" onclick="closeModal()">×</button>
     <div id="form-signup">
       <h2>Join ChabadMap</h2>
-      <p>Create your free temporary account — local only until Supabase is connected.</p>
+      <p>Create your free account stored in local storage.</p>
       <div class="form-group">
         <label>Full Name</label>
         <input type="text" id="su-name" placeholder="Moshe Goldstein">
@@ -638,7 +638,7 @@
     </div>
     <div id="form-login" class="hidden">
       <h2>Welcome back</h2>
-      <p>Sign in to your local temporary account.</p>
+      <p>Sign in to your local account.</p>
       <div class="form-group">
         <label>Email</label>
         <input type="email" id="li-email" placeholder="moshe@example.com">
@@ -673,7 +673,7 @@ const Store = {
 // ─── DATA ───────────────────────────────────────────────────────────────────
 
 let CHABAD_HOUSES = [];
-let osmFetched = false;
+let dataFetched = false;
 
 const MOCK_LEADERBOARD = [
   { name: "Shmuel Katz", initials: "SK", count: 312 },
@@ -692,7 +692,7 @@ let currentUser = null;   // { name, email }
 let mapInstance = null;
 let mapMarkers = [];
 
-// Always read users fresh from storage (avoids stale in-memory copy)
+// Always read users fresh from storage
 function getUsers() { return Store.get('cm_users', {}); }
 function saveUsers(u) { Store.set('cm_users', u); }
 
@@ -727,7 +727,7 @@ function doSignup() {
   const nameEl  = document.getElementById('su-name');
   const emailEl = document.getElementById('su-email');
   const passEl  = document.getElementById('su-pass');
-  if (!nameEl || !emailEl || !passEl) { showToast('⚠️ Form not found — try reopening'); return; }
+  if (!nameEl || !emailEl || !passEl) { showToast('⚠️ Form not found'); return; }
 
   const name  = nameEl.value.trim();
   const email = emailEl.value.trim().toLowerCase();
@@ -738,12 +738,12 @@ function doSignup() {
   if (!pass)  { showToast('⚠️ Please enter a password');    passEl.focus();  return; }
 
   const users = getUsers();
-  if (users[email]) { showToast('⚠️ That email is already registered — sign in instead'); return; }
+  if (users[email]) { showToast('⚠️ Email already registered — please sign in'); return; }
 
   users[email] = { name, email, pass, visited: [] };
   const saved = saveUsers(users);
   if (!saved) {
-    showToast('⚠️ Could not save — your browser may be blocking localStorage');
+    showToast('⚠️ Could not save — localStorage blocked');
     return;
   }
 
@@ -770,8 +770,8 @@ function doLogin() {
 
   const users = getUsers();
   const u = users[email];
-  if (!u)            { showToast('⚠️ No account found for that email'); return; }
-  if (u.pass !== pass) { showToast('⚠️ Wrong password');                  return; }
+  if (!u)              { showToast('⚠️ Account not found'); return; }
+  if (u.pass !== pass) { showToast('⚠️ Incorrect password'); return; }
 
   currentUser = { name: u.name, email };
   Store.set('cm_current', currentUser);
@@ -819,8 +819,6 @@ function switchModal(which) {
   document.getElementById('form-login').classList.toggle('hidden', which !== 'login');
 }
 
-// modal overlay click — wired in DOMContentLoaded below
-
 // ─── PAGES ───────────────────────────────────────────────────────────────────
 
 function showPage(id) {
@@ -836,16 +834,12 @@ function showPage(id) {
   if (id === 'list') renderList();
   if (id === 'board') renderBoard();
 
-  // Close profile sidebar on page change
   document.getElementById('profile-bar').classList.remove('open');
 }
 
 // ─── MAP ─────────────────────────────────────────────────────────────────────
 
 let clusterGroup = null;
-
-// ─── DATA LOADER ─────────────────────────────────────────────────────────────
-// Edit chabad-houses.json in your repo — the app picks up changes automatically.
 
 async function loadChabadData() {
   const loadEl  = document.getElementById('map-loading');
@@ -861,10 +855,9 @@ async function loadChabadData() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     CHABAD_HOUSES = await res.json();
 
-    // Re-index ids to be safe
     CHABAD_HOUSES.forEach((ch, i) => ch.id = i);
 
-    osmFetched = true;
+    dataFetched = true;
     if (loadEl)  loadEl.classList.add('hidden');
     if (statEl)  statEl.style.display = 'flex';
     if (countEl) countEl.textContent = `${CHABAD_HOUSES.length} Chabad Houses loaded`;
@@ -874,13 +867,13 @@ async function loadChabadData() {
 
   } catch (err) {
     console.error('Failed to load chabad-houses.json:', err);
-    if (msgEl) msgEl.textContent = '⚠️ Could not load chabad-houses.json — make sure it is in the same folder as index.html';
+    if (msgEl) msgEl.textContent = '⚠️ Could not load chabad-houses.json';
   }
 }
 
 function initMap() {
   if (mapInstance) {
-    if (osmFetched) renderMapMarkers();
+    if (dataFetched) renderMapMarkers();
     return;
   }
 
@@ -892,7 +885,6 @@ function initMap() {
     maxZoom: 19
   }).addTo(mapInstance);
 
-  // Cluster group
   clusterGroup = L.markerClusterGroup({
     chunkedLoading: true,
     maxClusterRadius: 50,
@@ -987,17 +979,13 @@ function buildPopup(ch) {
   </div>`;
 }
 
-// Called from inside popup (popup HTML can't reference closures directly in some Leaflet builds)
 function popupToggleVisit(id) {
   toggleVisit(id);
-  // Refresh popup content
   const marker = mapMarkers.find((m, i) => CHABAD_HOUSES[i]?.id === id);
   if (marker) marker.setPopupContent(buildPopup(CHABAD_HOUSES.find(c => c.id === id)));
 }
 
-
 // ─── LIST ────────────────────────────────────────────────────────────────────
-
 
 function updateMapMarkers(){ renderMapMarkers(); }
 function renderList() {
@@ -1005,10 +993,10 @@ function renderList() {
   const grid = document.getElementById('chabad-grid');
   if (!grid) return;
 
-  if (!osmFetched) {
+  if (!dataFetched) {
     grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem; color:var(--muted);">
       <div style="font-size:2rem; margin-bottom:0.5rem;">🔄</div>
-      Open the Map tab first to load Chabad Houses from OpenStreetMap.
+      Open the Map tab to load data from the repository.
     </div>`;
     return;
   }
@@ -1023,7 +1011,6 @@ function renderList() {
     return;
   }
 
-  // Show first 200 for performance; search narrows it
   const show = filtered.slice(0, 200);
   const more = filtered.length - show.length;
 
@@ -1038,7 +1025,7 @@ function renderList() {
         <span class="card-badge ${v ? 'badge-visited' : 'badge-not'}">${v ? 'Visited' : 'Not visited'}</span>
       </div>
     </div>`;
-  }).join('') + (more > 0 ? `<div style="grid-column:1/-1; text-align:center; color:var(--muted); font-size:0.85rem; padding:1rem;">+${more.toLocaleString()} more — use the search to filter</div>` : '');
+  }).join('') + (more > 0 ? `<div style="grid-column:1/-1; text-align:center; color:var(--muted); font-size:0.85rem; padding:1rem;">+${more.toLocaleString()} more — use search to filter</div>` : '');
 }
 
 function cardClick(id) {
@@ -1049,7 +1036,6 @@ function cardClick(id) {
 // ─── LEADERBOARD ─────────────────────────────────────────────────────────────
 
 function renderBoard() {
-  // Inject current user into board
   let entries = [...MOCK_LEADERBOARD];
   if (currentUser) {
     const visited = getVisited().length;
@@ -1063,7 +1049,6 @@ function renderBoard() {
     entries.sort((a,b) => b.count - a.count);
   }
 
-  // Podium
   const top3 = entries.slice(0, 3);
   const podiumOrder = top3.length >= 3 ? [top3[1], top3[0], top3[2]] : top3;
   const podiumClasses = top3.length >= 3 ? ['p2','p1','p3'] : ['p1','p2','p3'];
@@ -1080,7 +1065,6 @@ function renderBoard() {
     </div>
   `).join('');
 
-  // Rest of list
   document.getElementById('board-list').innerHTML = entries.slice(3).map((e, i) => `
     <div class="board-row ${e.isMe ? 'me' : ''}">
       <div class="board-rank">${i+4}</div>
@@ -1101,19 +1085,17 @@ function updateProfileBar() {
   if (!currentUser) return;
   const visited = getVisited().length;
   const total = CHABAD_HOUSES.length;
-  const pct = Math.round((visited / total) * 100);
+  const pct = total > 0 ? Math.round((visited / total) * 100) : 0;
 
   document.getElementById('prof-avatar').textContent =
     currentUser.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
   document.getElementById('prof-name').textContent = currentUser.name;
   document.getElementById('prof-email').textContent = currentUser.email;
   document.getElementById('prof-visited').textContent = visited;
-  document.getElementById('prof-total').textContent = osmFetched ? total : '…';
+  document.getElementById('prof-total').textContent = dataFetched ? total : '…';
   document.getElementById('prof-pct').textContent = pct + '%';
   document.getElementById('prof-fill').style.width = pct + '%';
 
-  // Approximate rank
-  const userEntry = { count: visited };
   const rank = MOCK_LEADERBOARD.filter(e => e.count > visited).length + 1;
   document.getElementById('prof-rank').textContent = '#' + rank;
 }
@@ -1133,11 +1115,10 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('modal-overlay').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
   });
-  // Restore session from storage
+
   currentUser = Store.get('cm_current', null);
 
   if (currentUser) {
-    // Verify the account still exists in users store
     const users = getUsers();
     if (!users[currentUser.email]) {
       currentUser = null;
@@ -1148,14 +1129,6 @@ document.addEventListener('DOMContentLoaded', function () {
   updateNavForAuth();
   if (currentUser) updateProfileBar();
   renderBoard();
-
-  // Warn if localStorage is unavailable (file:// + strict browser settings)
-  try {
-    localStorage.setItem('cm_test', '1');
-    localStorage.removeItem('cm_test');
-  } catch(e) {
-    setTimeout(() => showToast('⚠️ Storage blocked — open via a local server or browser that allows file:// storage'), 500);
-  }
 });
 
 </script>
