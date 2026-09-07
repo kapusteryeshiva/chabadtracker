@@ -1,0 +1,1472 @@
+[
+  {
+    "id": 0,
+    "name": "Chabad of Alabama, Beis Ariel Cultural Center",
+    "address": "3040 Overton Road, Birmingham, AL 35223",
+    "city": "Birmingham",
+    "state": "Alabama",
+    "country": "United States",
+    "lat": 33.52248,
+    "lng": -86.81246
+  },
+  {
+    "id": 1,
+    "name": "Chabad Lubavitch of Arizona",
+    "address": "2110 E. Lincoln Dr., Phoenix, AZ 85016",
+    "city": "Phoenix",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 33.44566,
+    "lng": -112.07662
+  },
+  {
+    "id": 2,
+    "name": "Chabad of Downtown Phoenix",
+    "address": "2110 E Lincoln Drive, Phoenix, AZ 85016",
+    "city": "Phoenix",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 33.44756,
+    "lng": -112.07454
+  },
+  {
+    "id": 3,
+    "name": "Chabad of North Phoenix",
+    "address": "22044 North 44th Street, Suite 100, Phoenix, AZ 85050-6104",
+    "city": "Phoenix",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 33.44884,
+    "lng": -112.07337
+  },
+  {
+    "id": 4,
+    "name": "Rohr Chabad Center at Arizona State University",
+    "address": "971 S Ash Avenue, Tempe, AZ 85281-8697",
+    "city": "Tempe",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 33.42621,
+    "lng": -111.93875
+  },
+  {
+    "id": 5,
+    "name": "Chabad of Flagstaff / Chabad at NAU",
+    "address": "930 W University Avenue, Flagstaff, AZ 86001",
+    "city": "Flagstaff",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 35.19756,
+    "lng": -111.65103
+  },
+  {
+    "id": 6,
+    "name": "Chabad University of Arizona",
+    "address": "1436 E. Drachman St, Tucson, AZ 85719",
+    "city": "Tucson",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 32.22027,
+    "lng": -110.97752
+  },
+  {
+    "id": 7,
+    "name": "Arizona Jewish Russian Programs Chabad",
+    "address": "6636 N 10th Avenue, Phoenix, AZ 85013",
+    "city": "Phoenix",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 33.44891,
+    "lng": -112.0741
+  },
+  {
+    "id": 8,
+    "name": "Chabad Jewish Center of Gilbert",
+    "address": "4475 E. Carriage Way, Gilbert, AZ 85297",
+    "city": "Gilbert",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 33.35244,
+    "lng": -111.78581
+  },
+  {
+    "id": 9,
+    "name": "Chabad of East Valley, Chandler",
+    "address": "875 North McClintock Drive, Chandler, AZ 85226",
+    "city": "Chandler",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 33.30513,
+    "lng": -111.83817
+  },
+  {
+    "id": 10,
+    "name": "Chabad Lubavitch of Fountain Hills",
+    "address": "16830 E Avenue of the Fountains, Fountain Hills, AZ 85268",
+    "city": "Fountain Hills",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 33.58575,
+    "lng": -111.7166
+  },
+  {
+    "id": 11,
+    "name": "Chabad of the West Valley",
+    "address": "7942 W Bell Road C5#101, Glendale, AZ 85308",
+    "city": "Glendale",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 33.54043,
+    "lng": -112.18658
+  },
+  {
+    "id": 12,
+    "name": "Chabad Jewish Center of Goodyear",
+    "address": "14295 W La Reata Avenue, Goodyear, AZ 85395",
+    "city": "Goodyear",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 33.43775,
+    "lng": -112.3568
+  },
+  {
+    "id": 13,
+    "name": "Chabad Jewish Center of Mesa",
+    "address": "941 S Maple, Mesa, AZ 85206-2511",
+    "city": "Mesa",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 33.41671,
+    "lng": -111.82912
+  },
+  {
+    "id": 14,
+    "name": "Chabad of Scottsdale Arizona",
+    "address": "10215 North Scottsdale Road, Scottsdale, AZ 85253",
+    "city": "Scottsdale",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 33.49408,
+    "lng": -111.92506
+  },
+  {
+    "id": 15,
+    "name": "Chabad Tucson / The Shul of Tucson",
+    "address": "2443 East 4th St., Tucson, AZ 85719-5122",
+    "city": "Tucson",
+    "state": "Arizona",
+    "country": "United States",
+    "lat": 32.22174,
+    "lng": -110.97173
+  },
+  {
+    "id": 16,
+    "name": "Chabad Lubavitch of Arkansas",
+    "address": "11905 Fairview Road, Little Rock, AR 72212",
+    "city": "Little Rock",
+    "state": "Arkansas",
+    "country": "United States",
+    "lat": 34.7466,
+    "lng": -92.29279
+  },
+  {
+    "id": 17,
+    "name": "Chabad of Northwest Arkansas",
+    "address": "3400 SE John Rollow Drive, Bentonville, AR 72712",
+    "city": "Bentonville",
+    "state": "Arkansas",
+    "country": "United States",
+    "lat": 36.37464,
+    "lng": -94.20696
+  },
+  {
+    "id": 18,
+    "name": "Chabad Jewish Community Center, Aspen Valley",
+    "address": "435 West Main St., Aspen, CO 81611",
+    "city": "Aspen",
+    "state": "Colorado",
+    "country": "United States",
+    "lat": 39.18855,
+    "lng": -106.81409
+  },
+  {
+    "id": 19,
+    "name": "Chabad Boulder County Center for Judaism",
+    "address": "4900 Sioux Drive, Boulder, CO 80303",
+    "city": "Boulder",
+    "state": "Colorado",
+    "country": "United States",
+    "lat": 40.01183,
+    "lng": -105.26988
+  },
+  {
+    "id": 20,
+    "name": "Rohr Chabad Center University of Colorado / Chabad at CU",
+    "address": "909 14th Street, Boulder, CO 80302",
+    "city": "Boulder",
+    "state": "Colorado",
+    "country": "United States",
+    "lat": 40.01184,
+    "lng": -105.27098
+  },
+  {
+    "id": 21,
+    "name": "Chabad Lubavitch of Colorado Springs and Southern Colorado",
+    "address": "6616 A Delmonico Drive, Colorado Springs, CO 80919",
+    "city": "Colorado Springs",
+    "state": "Colorado",
+    "country": "United States",
+    "lat": 38.83361,
+    "lng": -104.8211
+  },
+  {
+    "id": 22,
+    "name": "Chabad of Colorado in Denver",
+    "address": "400 South Holly Street, Denver, CO 80246",
+    "city": "Denver",
+    "state": "Colorado",
+    "country": "United States",
+    "lat": 39.74269,
+    "lng": -104.99032
+  },
+  {
+    "id": 23,
+    "name": "Chabad of South Denver / DU Chabad",
+    "address": "2319 S Josephine Street, Denver, CO 80210",
+    "city": "Denver",
+    "state": "Colorado",
+    "country": "United States",
+    "lat": 39.74104,
+    "lng": -104.99053
+  },
+  {
+    "id": 24,
+    "name": "Chabad WCRJ Community Center",
+    "address": "295 S Locust Street, Denver, CO 80224",
+    "city": "Denver",
+    "state": "Colorado",
+    "country": "United States",
+    "lat": 39.74082,
+    "lng": -104.99071
+  },
+  {
+    "id": 25,
+    "name": "Chabad of Northern Colorado",
+    "address": "1121 W Prospect Road, Suite 140, Fort Collins, CO 80526",
+    "city": "Fort Collins",
+    "state": "Colorado",
+    "country": "United States",
+    "lat": 40.58494,
+    "lng": -105.08518
+  },
+  {
+    "id": 26,
+    "name": "Chabad Jewish Center of South Metro Denver — Lone Tree Campus",
+    "address": "9950 Lone Tree Parkway, Lone Tree, CO 80124",
+    "city": "Lone Tree",
+    "state": "Colorado",
+    "country": "United States",
+    "lat": 39.52546,
+    "lng": -104.8707
+  },
+  {
+    "id": 27,
+    "name": "Chabad Jewish Center of South Metro Denver — Greenwood Village Campus",
+    "address": "6100 E Belleview Ave, Greenwood Village, CO 80111",
+    "city": "Greenwood Village",
+    "state": "Colorado",
+    "country": "United States",
+    "lat": 39.61071,
+    "lng": -104.92016
+  },
+  {
+    "id": 28,
+    "name": "Chabad of NW Metro Denver",
+    "address": "4505 W 112th Ave, Westminster, CO 80031",
+    "city": "Westminster",
+    "state": "Colorado",
+    "country": "United States",
+    "lat": 39.8385,
+    "lng": -105.04014
+  },
+  {
+    "id": 29,
+    "name": "Ohr Avner Community Center of Colorado",
+    "address": "11100 E Mississippi Avenue, Aurora, CO 80012-3170",
+    "city": "Aurora",
+    "state": "Colorado",
+    "country": "United States",
+    "lat": 39.72628,
+    "lng": -104.83006
+  },
+  {
+    "id": 30,
+    "name": "Chabad of Bloomington and Indiana University",
+    "address": "703 E 7th St, Bloomington, IN 47408",
+    "city": "Bloomington",
+    "state": "Indiana",
+    "country": "United States",
+    "lat": 39.16237,
+    "lng": -86.52856
+  },
+  {
+    "id": 31,
+    "name": "Chabad Jewish Center of Fort Wayne",
+    "address": "10507 Traders Pass, Fort Wayne, IN 46845",
+    "city": "Fort Wayne",
+    "state": "Indiana",
+    "country": "United States",
+    "lat": 41.08163,
+    "lng": -85.14113
+  },
+  {
+    "id": 32,
+    "name": "Chabad of Greater South Bend",
+    "address": "16585 Gerald Street, Granger, IN 46530",
+    "city": "Granger",
+    "state": "Indiana",
+    "country": "United States",
+    "lat": 41.73914,
+    "lng": -86.12399
+  },
+  {
+    "id": 33,
+    "name": "Chabad Lubavitch of Indiana",
+    "address": "2640 W 96th Street, Indianapolis, IN 46268-2901",
+    "city": "Indianapolis",
+    "state": "Indiana",
+    "country": "United States",
+    "lat": 39.76919,
+    "lng": -86.15749
+  },
+  {
+    "id": 34,
+    "name": "Chabad of Northwest Indiana",
+    "address": "1113 Ridge Road, Munster, IN 46321",
+    "city": "Munster",
+    "state": "Indiana",
+    "country": "United States",
+    "lat": 41.5637,
+    "lng": -87.50861
+  },
+  {
+    "id": 35,
+    "name": "Chabad at Purdue",
+    "address": "444 Littleton St, West Lafayette, IN",
+    "city": "West Lafayette",
+    "state": "Indiana",
+    "country": "United States",
+    "lat": 40.42267,
+    "lng": -86.91002
+  },
+  {
+    "id": 36,
+    "name": "Chabad of Overland Park & Leawood",
+    "address": "6201 Indian Creek Dr., Overland Park, KS 66207",
+    "city": "Overland Park",
+    "state": "Kansas",
+    "country": "United States",
+    "lat": 38.98413,
+    "lng": -94.67226
+  },
+  {
+    "id": 37,
+    "name": "Chabad at the University of Kansas and Northeast Kansas Communities",
+    "address": "1201 West 19th Street, Lawrence, KS 66046",
+    "city": "Lawrence",
+    "state": "Kansas",
+    "country": "United States",
+    "lat": 38.9713,
+    "lng": -95.23376
+  },
+  {
+    "id": 38,
+    "name": "Chabad of Wichita and Rural Kansas",
+    "address": "2307 N Hathway Circle, Wichita, KS 67226",
+    "city": "Wichita",
+    "state": "Kansas",
+    "country": "United States",
+    "lat": 37.68723,
+    "lng": -97.32706
+  },
+  {
+    "id": 39,
+    "name": "Torah Learning Center — Chabad Shul and Minyan",
+    "address": "8800 W 103rd St, Overland Park, KS 66212",
+    "city": "Overland Park",
+    "state": "Kansas",
+    "country": "United States",
+    "lat": 38.98438,
+    "lng": -94.67045
+  },
+  {
+    "id": 40,
+    "name": "Chabad Lubavitch Upper East Side",
+    "address": "419 East 77th Street, New York, NY 10021",
+    "city": "New York City",
+    "state": "New York",
+    "country": "United States",
+    "lat": 40.76065,
+    "lng": -73.98621
+  },
+  {
+    "id": 41,
+    "name": "Chabad House Bowery",
+    "address": "353 Bowery, New York, NY 10003",
+    "city": "New York City",
+    "state": "New York",
+    "country": "United States",
+    "lat": 40.75712,
+    "lng": -73.98802
+  },
+  {
+    "id": 42,
+    "name": "The Center for Jewish Discovery Chabad Lubavitch",
+    "address": "121 West 19th Street, New York, NY 10011-4126",
+    "city": "New York City",
+    "state": "New York",
+    "country": "United States",
+    "lat": 40.75594,
+    "lng": -73.9875
+  },
+  {
+    "id": 43,
+    "name": "Agudas Chassidei Chabad",
+    "address": "770 Eastern Parkway, Brooklyn, NY 11213",
+    "city": "Brooklyn",
+    "state": "New York",
+    "country": "United States",
+    "lat": 40.67583,
+    "lng": -73.94049
+  },
+  {
+    "id": 44,
+    "name": "Chabad Lubavitch of Flatbush",
+    "address": "1923 Ocean Avenue, Brooklyn, NY 11230",
+    "city": "Brooklyn",
+    "state": "New York",
+    "country": "United States",
+    "lat": 40.67493,
+    "lng": -73.94071
+  },
+  {
+    "id": 45,
+    "name": "Chabad Lubavitch Media Center / Chabad Lubavitch in Cyberspace",
+    "address": "770 Eastern Parkway, Brooklyn, NY 11213",
+    "city": "Brooklyn",
+    "state": "New York",
+    "country": "United States",
+    "lat": 40.67595,
+    "lng": -73.94183
+  },
+  {
+    "id": 46,
+    "name": "Chabad of Central Brooklyn & The Ocean Parkway Mikvah",
+    "address": "605 Ocean Pkwy, Brooklyn, NY 11218",
+    "city": "Brooklyn",
+    "state": "New York",
+    "country": "United States",
+    "lat": 40.67955,
+    "lng": -73.94217
+  },
+  {
+    "id": 47,
+    "name": "Chabad of Rockland",
+    "address": "315 North Main Street, New City, NY 10956",
+    "city": "New City",
+    "state": "New York",
+    "country": "United States",
+    "lat": 41.14536,
+    "lng": -73.98573
+  },
+  {
+    "id": 48,
+    "name": "Chabad of Monticello",
+    "address": "15 North Street, Monticello, NY 12701",
+    "city": "Monticello",
+    "state": "New York",
+    "country": "United States",
+    "lat": 41.65817,
+    "lng": -74.68499
+  },
+  {
+    "id": 49,
+    "name": "Chabad of Rock Hill",
+    "address": "242 Old Sackett Road, Rock Hill, NY 12775",
+    "city": "Rock Hill",
+    "state": "New York",
+    "country": "United States",
+    "lat": 41.61326,
+    "lng": -74.59609
+  },
+  {
+    "id": 50,
+    "name": "Anshe Sholom Chabad",
+    "address": "82-52 Abingdon Rd., Kew Gardens, NY 11415",
+    "city": "Kew Gardens",
+    "state": "New York",
+    "country": "United States",
+    "lat": 40.71435,
+    "lng": -73.83484
+  },
+  {
+    "id": 51,
+    "name": "Chabad of Queens College",
+    "address": "144-03 69th Ave., Kew Gardens Hills, NY 11367-1709",
+    "city": "Kew Gardens Hills",
+    "state": "New York",
+    "country": "United States",
+    "lat": 40.72677,
+    "lng": -73.82089
+  },
+  {
+    "id": 52,
+    "name": "Chabad Lubavitch of the East End",
+    "address": "87 Mt Sinai Coram Road, Coram, NY 11727",
+    "city": "Coram",
+    "state": "New York",
+    "country": "United States",
+    "lat": 40.87067,
+    "lng": -73.00092
+  },
+  {
+    "id": 53,
+    "name": "Congregation Tzemach Tzedek Lubavitch Monsey",
+    "address": "2 Langeries Drive, Monsey, NY 10952",
+    "city": "Monsey",
+    "state": "New York",
+    "country": "United States",
+    "lat": 41.10806,
+    "lng": -74.06794
+  },
+  {
+    "id": 54,
+    "name": "Heichal Menachem Monsey (Chabad)",
+    "address": "51 Park Ln, Monsey, NY 10952",
+    "city": "Monsey",
+    "state": "New York",
+    "country": "United States",
+    "lat": 41.11106,
+    "lng": -74.06527
+  },
+  {
+    "id": 55,
+    "name": "Chabad Lubavitch Argentina HQ",
+    "address": "Aguero 1164, Capital Federal, Buenos Aires 1425",
+    "city": "Buenos Aires",
+    "state": "Buenos Aires",
+    "country": "Argentina",
+    "lat": -34.60047,
+    "lng": -58.37782
+  },
+  {
+    "id": 56,
+    "name": "Beit Jabad Barracas",
+    "address": "Azara 710, Capital Federal, Buenos Aires 1212",
+    "city": "Buenos Aires",
+    "state": "Buenos Aires",
+    "country": "Argentina",
+    "lat": -34.60136,
+    "lng": -58.37968
+  },
+  {
+    "id": 57,
+    "name": "Beis Chabad Barrio Norte - Aguero",
+    "address": "Agüero 1164, Capital Federal, 1425",
+    "city": "Buenos Aires",
+    "state": "Buenos Aires",
+    "country": "Argentina",
+    "lat": -34.60006,
+    "lng": -58.38343
+  },
+  {
+    "id": 58,
+    "name": "Beit Jabad Zona Norte",
+    "address": "3 Sargentos 2067, Martinez, Buenos Aires B1640EQT",
+    "city": "Martinez",
+    "state": "Buenos Aires",
+    "country": "Argentina",
+    "lat": -34.49557,
+    "lng": -58.50777
+  },
+  {
+    "id": 59,
+    "name": "Beit Jabad La Plata",
+    "address": "Calle 16 n. 732, La Plata, Buenos Aires 1900",
+    "city": "La Plata",
+    "state": "Buenos Aires",
+    "country": "Argentina",
+    "lat": -34.92025,
+    "lng": -57.95203
+  },
+  {
+    "id": 60,
+    "name": "Jabad Lubavitch Mar Del Plata",
+    "address": "3 de Febrero 2451, Mar del Plata, B7600HCC",
+    "city": "Mar del Plata",
+    "state": "Buenos Aires",
+    "country": "Argentina",
+    "lat": -37.99976,
+    "lng": -57.56707
+  },
+  {
+    "id": 61,
+    "name": "Chabad-Lubavitch Puerto Madero",
+    "address": "Azucena Villaflor 770, Capital Federal, Buenos Aires 1107",
+    "city": "Puerto Madero",
+    "state": "Buenos Aires",
+    "country": "Argentina",
+    "lat": -34.61478,
+    "lng": -58.367
+  },
+  {
+    "id": 62,
+    "name": "Beit Chabad Melbourne / Chabad House for Travelers",
+    "address": "173 Balaclava Rd, Caulfield North VIC 3161",
+    "city": "Caulfield North",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.87552,
+    "lng": 145.03127
+  },
+  {
+    "id": 63,
+    "name": "Beis Menachem Community Centre / Chabad House of Bentleigh",
+    "address": "13-17 Cecil Street, Bentleigh East VIC 3165",
+    "city": "Bentleigh East",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.92423,
+    "lng": 145.04712
+  },
+  {
+    "id": 64,
+    "name": "Chabad House of Caulfield",
+    "address": "4439 Inkerman Street, East St. Kilda, VIC 3183",
+    "city": "East St Kilda",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.86859,
+    "lng": 145.00202
+  },
+  {
+    "id": 65,
+    "name": "Chabad on Campus",
+    "address": "15 Balaclava Rd, St Kilda East VIC 3183",
+    "city": "St Kilda East",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.87157,
+    "lng": 144.99724
+  },
+  {
+    "id": 66,
+    "name": "Chabad House Malvern",
+    "address": "316 Glenferrie Road, Malvern VIC 3144",
+    "city": "Malvern",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.86544,
+    "lng": 145.03152
+  },
+  {
+    "id": 67,
+    "name": "Ohel Chana Seminari",
+    "address": "88 Hotham St., St Kilda East VIC 3183",
+    "city": "St Kilda East",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.8685,
+    "lng": 145.00123
+  },
+  {
+    "id": 68,
+    "name": "Chabad on Carlisle - Jewish Russian Centre",
+    "address": "366 Carlisle Street, Balaclava VIC 3183",
+    "city": "Balaclava",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.8699,
+    "lng": 144.99287
+  },
+  {
+    "id": 69,
+    "name": "Chabad of ARA",
+    "address": "5 Pearson Grove, Caulfield North VIC 3161",
+    "city": "Caulfield North",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.87818,
+    "lng": 145.03695
+  },
+  {
+    "id": 70,
+    "name": "Chabad Glen Eira",
+    "address": "484 Glen Eira Road, Caulfield VIC 3162",
+    "city": "Caulfield",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.88002,
+    "lng": 145.02502
+  },
+  {
+    "id": 71,
+    "name": "Cheder Levi Yitzchok",
+    "address": "12 Chapel Street, St. Kilda VIC 3182",
+    "city": "St Kilda",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.85814,
+    "lng": 144.97732
+  },
+  {
+    "id": 72,
+    "name": "Rambam Sephardi Synagogue (Chabad)",
+    "address": "2a Carlisle avenue, Balaclava VIC 3183",
+    "city": "Balaclava",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.86971,
+    "lng": 144.99843
+  },
+  {
+    "id": 73,
+    "name": "Chabad Sparks",
+    "address": "1 A'beckett St, St Kilda East VIC 3183",
+    "city": "St Kilda East",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.86601,
+    "lng": 144.99762
+  },
+  {
+    "id": 74,
+    "name": "Rabbinical College of Australia and New Zealand (Chabad)",
+    "address": "67 Alexandra Street, St. Kilda East VIC 3183",
+    "city": "St Kilda East",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.8684,
+    "lng": 144.99882
+  },
+  {
+    "id": 75,
+    "name": "Chabad of Melbourne CBD",
+    "address": "Suite 301, Level 3, 343 Little Collins Street, Melbourne VIC 3000",
+    "city": "Melbourne",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.80981,
+    "lng": 144.9595
+  },
+  {
+    "id": 76,
+    "name": "East Melbourne Chabad",
+    "address": "488 Albert St., East Melbourne VIC 3002",
+    "city": "East Melbourne",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.81742,
+    "lng": 144.98735
+  },
+  {
+    "id": 77,
+    "name": "Chabad Carnegie",
+    "address": "695 North Road, Carnegie VIC 3163",
+    "city": "Carnegie",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.89298,
+    "lng": 145.05776
+  },
+  {
+    "id": 78,
+    "name": "Central Shule Chabad",
+    "address": "4 Maple St, Caulfield South VIC 3162",
+    "city": "Caulfield South",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.89358,
+    "lng": 145.02016
+  },
+  {
+    "id": 79,
+    "name": "HaMerkaz Shelanu, Inc (Chabad)",
+    "address": "569 Glenhuntly Road, Elsternwick VIC 3185",
+    "city": "Elsternwick",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.88557,
+    "lng": 144.99939
+  },
+  {
+    "id": 80,
+    "name": "L'Chaim Chabad - Kingston / Moorabbin Shul",
+    "address": "960 Nepean Highway, Moorabbin VIC 3189",
+    "city": "Moorabbin",
+    "state": "Victoria",
+    "country": "Australia",
+    "lat": -37.93572,
+    "lng": 145.05533
+  },
+  {
+    "id": 81,
+    "name": "Chabad House Rose Bay",
+    "address": "427 Old South Head Road, Rose Bay NSW 2029",
+    "city": "Rose Bay",
+    "state": "New South Wales",
+    "country": "Australia",
+    "lat": -33.87029,
+    "lng": 151.26406
+  },
+  {
+    "id": 82,
+    "name": "Chabad of Western Australia",
+    "address": "11 Garson Court, Perth WA 6062",
+    "city": "Perth",
+    "state": "Western Australia",
+    "country": "Australia",
+    "lat": -31.94662,
+    "lng": 115.86363
+  },
+  {
+    "id": 83,
+    "name": "Beit Chabad Belem",
+    "address": "Avenue Serzedelo Correa 276, Belem, PA 66035-400",
+    "city": "Belem",
+    "state": "Pará",
+    "country": "Brazil",
+    "lat": -1.45345,
+    "lng": -48.50288
+  },
+  {
+    "id": 84,
+    "name": "Beit Chabad do Brazil - Minas Gerais",
+    "address": "Rua Timbiras 501, Belo Horizonte, MG 30140-060",
+    "city": "Belo Horizonte",
+    "state": "Minas Gerais",
+    "country": "Brazil",
+    "lat": -19.91711,
+    "lng": -43.93148
+  },
+  {
+    "id": 85,
+    "name": "Yeshiva Colegial Machne Israel - Yeshiva G'dolah",
+    "address": "Rua Duarde De Silveria 1246, Petropolis, RJ 25665-471",
+    "city": "Petropolis",
+    "state": "Rio de Janeiro",
+    "country": "Brazil",
+    "lat": -22.50141,
+    "lng": -43.17722
+  },
+  {
+    "id": 86,
+    "name": "Beit Chabad do Brazil - Porto Alegre",
+    "address": "Rua Schiller 105 Apt#5, Porto Alegre, RS 90430-150",
+    "city": "Porto Alegre",
+    "state": "Rio Grande do Sul",
+    "country": "Brazil",
+    "lat": -30.03206,
+    "lng": -51.21837
+  },
+  {
+    "id": 87,
+    "name": "Sinagoga Beit Chabad",
+    "address": "Rua Felipe Camarao 748/102, Porto Alegre, RS 90035-140",
+    "city": "Porto Alegre",
+    "state": "Rio Grande do Sul",
+    "country": "Brazil",
+    "lat": -30.03794,
+    "lng": -51.21576
+  },
+  {
+    "id": 88,
+    "name": "Escola Beit Chabad",
+    "address": "Rua Francisco Ferrer 170, Porto Alegre, RS",
+    "city": "Porto Alegre",
+    "state": "Rio Grande do Sul",
+    "country": "Brazil",
+    "lat": -30.03561,
+    "lng": -51.2147
+  },
+  {
+    "id": 89,
+    "name": "Beit Chabad Seminary",
+    "address": "Rua Vitor Meireles 67, Porto Alegre, RS 90430-160",
+    "city": "Porto Alegre",
+    "state": "Rio Grande do Sul",
+    "country": "Brazil",
+    "lat": -30.03132,
+    "lng": -51.21891
+  },
+  {
+    "id": 90,
+    "name": "Beit Chabad Recife",
+    "address": "Rua Jorge Couceiro Da C Eiras, 603, Recife, PE 51021-300",
+    "city": "Recife",
+    "state": "Pernambuco",
+    "country": "Brazil",
+    "lat": -8.0562,
+    "lng": -34.87954
+  },
+  {
+    "id": 91,
+    "name": "Beit Lubavitch Rio De Janeiro",
+    "address": "Rua General Venancio Flores, 221 Leblon, Rio de Janeiro, RJ 22441-090",
+    "city": "Rio de Janeiro",
+    "state": "Rio de Janeiro",
+    "country": "Brazil",
+    "lat": -22.90853,
+    "lng": -43.16947
+  },
+  {
+    "id": 92,
+    "name": "Beit Lubavitch Copacabana - Chabad Rio de Janeiro",
+    "address": "Rua Maracanaú 11, Rio de Janeiro, RJ 22030-020",
+    "city": "Rio de Janeiro",
+    "state": "Rio de Janeiro",
+    "country": "Brazil",
+    "lat": -22.90308,
+    "lng": -43.17215
+  },
+  {
+    "id": 93,
+    "name": "Beit Lubavitch - Tijuca",
+    "address": "Avenida Melo Matos 39/501 Tijuca, Rio de Janeiro, RJ 20270-290",
+    "city": "Rio de Janeiro",
+    "state": "Rio de Janeiro",
+    "country": "Brazil",
+    "lat": -22.90665,
+    "lng": -43.17009
+  },
+  {
+    "id": 94,
+    "name": "Beit Lubavitch - Ipanema",
+    "address": "R. Nascimento Silva, 109 Ipanema, Rio de Janeiro, RJ",
+    "city": "Rio de Janeiro",
+    "state": "Rio de Janeiro",
+    "country": "Brazil",
+    "lat": -22.90618,
+    "lng": -43.17252
+  },
+  {
+    "id": 95,
+    "name": "Cheder Beit Menachem",
+    "address": "Rua das Laranjeiras 346 / 3e5 andar, Rio de Janeiro, RJ 22441-040",
+    "city": "Rio de Janeiro",
+    "state": "Rio de Janeiro",
+    "country": "Brazil",
+    "lat": -22.90838,
+    "lng": -43.1727
+  },
+  {
+    "id": 96,
+    "name": "Beit Chabad S. Andre",
+    "address": "Rua Onze De Juno 172, S. Andre, SP 09015",
+    "city": "Santo André",
+    "state": "São Paulo",
+    "country": "Brazil",
+    "lat": -23.66345,
+    "lng": -46.53572
+  },
+  {
+    "id": 97,
+    "name": "Beit Chabad Brookline",
+    "address": "R. Guararapes, 909, S. Paulo, SP 04561-001",
+    "city": "São Paulo",
+    "state": "São Paulo",
+    "country": "Brazil",
+    "lat": -23.54727,
+    "lng": -46.63676
+  },
+  {
+    "id": 98,
+    "name": "Beit Chabad do Brazil - Headquarters",
+    "address": "Rua Melo Alves 580, S. Paulo, SP 01417-010",
+    "city": "São Paulo",
+    "state": "São Paulo",
+    "country": "Brazil",
+    "lat": -23.55205,
+    "lng": -46.63493
+  },
+  {
+    "id": 99,
+    "name": "Beit Chabad Itaim",
+    "address": "Av Europa 913, S. Paulo, SP 01449-001",
+    "city": "São Paulo",
+    "state": "São Paulo",
+    "country": "Brazil",
+    "lat": -23.54906,
+    "lng": -46.6313
+  },
+  {
+    "id": 100,
+    "name": "Beit Chabad Morumbi",
+    "address": "Rua Votuverava 174, S. Paulo, SP 05604-020",
+    "city": "São Paulo",
+    "state": "São Paulo",
+    "country": "Brazil",
+    "lat": -23.54762,
+    "lng": -46.63729
+  },
+  {
+    "id": 101,
+    "name": "Beit Chabad Vila Mariana",
+    "address": "R. S. Samuel, 69, S. Paulo, SP 04020-030",
+    "city": "São Paulo",
+    "state": "São Paulo",
+    "country": "Brazil",
+    "lat": -23.54896,
+    "lng": -46.62942
+  },
+  {
+    "id": 102,
+    "name": "Chabad Hebrew / Chabad center",
+    "address": "7770 Bathurst Street, Thornhill, ON L4J 0H6",
+    "city": "Thornhill",
+    "state": "Ontario",
+    "country": "Canada",
+    "lat": 43.81427,
+    "lng": -79.42197
+  },
+  {
+    "id": 103,
+    "name": "Chabad Lubavitch on the East Side",
+    "address": "55 Rawlinson Avenue, Toronto, ON M4P 2N1",
+    "city": "Toronto",
+    "state": "Ontario",
+    "country": "Canada",
+    "lat": 43.655,
+    "lng": -79.38564
+  },
+  {
+    "id": 104,
+    "name": "Chabad House of Downtown Toronto",
+    "address": "15A Clarence Square, Toronto, ON M5V 1H1",
+    "city": "Toronto",
+    "state": "Ontario",
+    "country": "Canada",
+    "lat": 43.65446,
+    "lng": -79.38539
+  },
+  {
+    "id": 105,
+    "name": "Chabad of Midtown Toronto / Chabad House at University of Toronto",
+    "address": "1344 Bathurst Street, Toronto, ON M5R 3H7",
+    "city": "Toronto",
+    "state": "Ontario",
+    "country": "Canada",
+    "lat": 43.65656,
+    "lng": -79.38223
+  },
+  {
+    "id": 106,
+    "name": "Chabad on Bayview",
+    "address": "2437 Bayview Avenue, Toronto, ON M2L 1A5",
+    "city": "Toronto",
+    "state": "Ontario",
+    "country": "Canada",
+    "lat": 43.65197,
+    "lng": -79.38513
+  },
+  {
+    "id": 107,
+    "name": "Chabad-Lubavitch of Danforth Beaches",
+    "address": "2273 Queen Street E, Toronto, ON M4E 1G5",
+    "city": "Toronto",
+    "state": "Ontario",
+    "country": "Canada",
+    "lat": 43.65048,
+    "lng": -79.3818
+  },
+  {
+    "id": 108,
+    "name": "The Family Shul, Chabad House",
+    "address": "157 Falkirk Street, Toronto, ON M5M 4K4",
+    "city": "Toronto",
+    "state": "Ontario",
+    "country": "Canada",
+    "lat": 43.65201,
+    "lng": -79.37962
+  },
+  {
+    "id": 109,
+    "name": "Beth Chabad C.S.L",
+    "address": "6501 Kildare Road, Cote St Luc, QC H4W 0A1",
+    "city": "Côte-Saint-Luc",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.47005,
+    "lng": -73.66225
+  },
+  {
+    "id": 110,
+    "name": "City Chabad Jewish Community Center",
+    "address": "545 Grande Allée Est, Québec, QC G1R 2J5",
+    "city": "Quebec City",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 46.81676,
+    "lng": -71.20529
+  },
+  {
+    "id": 111,
+    "name": "Chabad Hope Center / The Family Store",
+    "address": "5110 Ave De Courtrai, #201, Montreal, QC H3W 1A7",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.49862,
+    "lng": -73.56463
+  },
+  {
+    "id": 112,
+    "name": "Chabad Chai JCC",
+    "address": "5120 De Courtrai Avenue, Suite 170, Montreal, QC H3W 1A7",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.49943,
+    "lng": -73.56776
+  },
+  {
+    "id": 113,
+    "name": "Centre Chabad Montreal / Chabad of the Laurentians",
+    "address": "4691 Van Horne Avenue, Montreal, QC H3W 1H3",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.49957,
+    "lng": -73.56513
+  },
+  {
+    "id": 114,
+    "name": "Chabad at McGill",
+    "address": "3429 Peel St., Montreal, QC H3A-1W7",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.50263,
+    "lng": -73.56884
+  },
+  {
+    "id": 115,
+    "name": "Chabad Chabanel & Maison Belfield",
+    "address": "9297 Tolhurst Street, Montreal, QC H2N 1X1",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.49981,
+    "lng": -73.56427
+  },
+  {
+    "id": 116,
+    "name": "Chabad House Latino Montreal",
+    "address": "4750 Carlton Avenue, Montreal, QC H3W 1G4",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.50549,
+    "lng": -73.56491
+  },
+  {
+    "id": 117,
+    "name": "Chabad House Lubavitch Youth Organization of Montreal",
+    "address": "3429 Peel Street, Montreal, QC H3A 1W7",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.49792,
+    "lng": -73.56724
+  },
+  {
+    "id": 118,
+    "name": "Chabad House Mile End",
+    "address": "5316 Avenue du Parc, Suite 200, Montreal, QC H2V 4G7",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.50375,
+    "lng": -73.56862
+  },
+  {
+    "id": 119,
+    "name": "Chabad of Old Montreal and Griffintown",
+    "address": "383 Rue Notre-Dame Ouest, Montreal, QC H2Y 1T9",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.50071,
+    "lng": -73.56457
+  },
+  {
+    "id": 120,
+    "name": "Chabad of the Town",
+    "address": "4054 Jean Talon Ouest, Montreal, Quebec H4P1V5",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.49937,
+    "lng": -73.56575
+  },
+  {
+    "id": 121,
+    "name": "Chabad Russian Youth Center / Canadian Jewish Magazine",
+    "address": "4707 Carlton Avenue, Montreal, QC H3W 1G5",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.50416,
+    "lng": -73.56664
+  },
+  {
+    "id": 122,
+    "name": "Chabad House Zichron Kedoshim",
+    "address": "5215 Westbury, Montreal, QC H3W 2W4",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.50479,
+    "lng": -73.56629
+  },
+  {
+    "id": 123,
+    "name": "Heichal Menachem Chabad House",
+    "address": "5253 Hutchison Street, Montreal, QC H2V 4B4",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.50087,
+    "lng": -73.56603
+  },
+  {
+    "id": 124,
+    "name": "Jewish Russian Community Center of Montreal",
+    "address": "5380 Bourret Avenue, Montreal, QC H2X 1J2",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.5009,
+    "lng": -73.56374
+  },
+  {
+    "id": 125,
+    "name": "Mada Community Center",
+    "address": "6785 Boul Decarie, Montreal, QC H3W 3E4",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.49844,
+    "lng": -73.56721
+  },
+  {
+    "id": 126,
+    "name": "Rohr Chabad House of NDG",
+    "address": "6058 Sherbrooke Street W, Montreal, QC H4A 1Y1",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.50123,
+    "lng": -73.56388
+  },
+  {
+    "id": 127,
+    "name": "Chabad @ CEGEP / Chabad Campus House",
+    "address": "6995 Westbury Avenue, Montreal, QC H3W 1B6",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.49957,
+    "lng": -73.56839
+  },
+  {
+    "id": 128,
+    "name": "Chabad Université de Montreal",
+    "address": "5325 Gatineau, Montreal, QC H3T 1X1",
+    "city": "Montreal",
+    "state": "Quebec",
+    "country": "Canada",
+    "lat": 45.5023,
+    "lng": -73.56341
+  },
+  {
+    "id": 129,
+    "name": "Judisches Bildungszentrum - Chabad Lubawitsch Berlin",
+    "address": "Münstersche Str. 6, 10709 Berlin",
+    "city": "Berlin",
+    "state": "",
+    "country": "Germany",
+    "lat": 52.52352,
+    "lng": 13.40803
+  },
+  {
+    "id": 130,
+    "name": "Chabad Lubawitsch Cologne (Köln)",
+    "address": "Hochstadenstr 15, Cologne, D-50674",
+    "city": "Cologne",
+    "state": "",
+    "country": "Germany",
+    "lat": 50.93593,
+    "lng": 6.9494
+  },
+  {
+    "id": 131,
+    "name": "Chabad Sachsen",
+    "address": "Tiergarten Strasse 82, 01219 Dresden",
+    "city": "Dresden",
+    "state": "",
+    "country": "Germany",
+    "lat": 51.04699,
+    "lng": 13.73876
+  },
+  {
+    "id": 132,
+    "name": "Chabad Lubavitch Düsseldorf",
+    "address": "Bankstr. 71, 40476 Düsseldorf",
+    "city": "Düsseldorf",
+    "state": "",
+    "country": "Germany",
+    "lat": 51.21898,
+    "lng": 6.77438
+  },
+  {
+    "id": 133,
+    "name": "Chabad of Frankfurt am Main",
+    "address": "Voelckerstr. 18, 60322 Frankfurt / Main",
+    "city": "Frankfurt am Main",
+    "state": "",
+    "country": "Germany",
+    "lat": 50.10867,
+    "lng": 8.67863
+  },
+  {
+    "id": 134,
+    "name": "Chabad Lubawitsch Hamburg",
+    "address": "Rothenbaumchaussee 19, Hamburg 20148",
+    "city": "Hamburg",
+    "state": "",
+    "country": "Germany",
+    "lat": 53.5721,
+    "lng": 10.01593
+  },
+  {
+    "id": 135,
+    "name": "Chabad of Nürnberg / Erlangen",
+    "address": "Regensburgerstr. 52-54, 90478 Nürnberg",
+    "city": "Nürnberg",
+    "state": "",
+    "country": "Germany",
+    "lat": 49.44869,
+    "lng": 11.07927
+  },
+  {
+    "id": 136,
+    "name": "Chabad of Offenbach Am Main",
+    "address": "Offenbach Am Main, 63065",
+    "city": "Offenbach am Main",
+    "state": "",
+    "country": "Germany",
+    "lat": 50.0988,
+    "lng": 8.77872
+  },
+  {
+    "id": 137,
+    "name": "Chabad of Potsdam",
+    "address": "Hans-Thoma Str. 3, 14467 Potsdam",
+    "city": "Potsdam",
+    "state": "",
+    "country": "Germany",
+    "lat": 52.39095,
+    "lng": 13.06519
+  },
+  {
+    "id": 138,
+    "name": "Chabad Lubawitsch Württemberg",
+    "address": "Karlsplatz 4/1, 89073 Ulm",
+    "city": "Ulm",
+    "state": "",
+    "country": "Germany",
+    "lat": 48.40186,
+    "lng": 9.98668
+  },
+  {
+    "id": 139,
+    "name": "Chabad Lubavitch Frankfurt",
+    "address": "Reuterweg 86, Frankfurt am Main, 60323",
+    "city": "Frankfurt am Main",
+    "state": "",
+    "country": "Germany",
+    "lat": 50.10871,
+    "lng": 8.68267
+  },
+  {
+    "id": 140,
+    "name": "Chabad Germany and Centers",
+    "address": "Prinzregentenstrasse 91, 81677 Munich",
+    "city": "Munich",
+    "state": "",
+    "country": "Germany",
+    "lat": 48.13589,
+    "lng": 11.57814
+  },
+  {
+    "id": 141,
+    "name": "Beth Habad Loubavitch de Creteil",
+    "address": "21 Rue des Refugniks, Creteil, 94000",
+    "city": "Créteil",
+    "state": "",
+    "country": "France",
+    "lat": 48.7929,
+    "lng": 2.45332
+  },
+  {
+    "id": 142,
+    "name": "Beth Habad D'epinay/Enghien",
+    "address": "26 Rue Victor Hugo, Epinay S/S, 93800",
+    "city": "Epinay-sur-Seine",
+    "state": "",
+    "country": "France",
+    "lat": 48.95567,
+    "lng": 2.31018
+  },
+  {
+    "id": 143,
+    "name": "Heder Loubavitch",
+    "address": "2 Bis Avenue Du Petit Chateau, Brunoy, 91800",
+    "city": "Brunoy",
+    "state": "",
+    "country": "France",
+    "lat": 48.69685,
+    "lng": 2.4998
+  },
+  {
+    "id": 144,
+    "name": "Yeshivas Tomchei Tmimim",
+    "address": "2 Bis Avenue Du Petit Chateau, Brunoy, 91800",
+    "city": "Brunoy",
+    "state": "",
+    "country": "France",
+    "lat": 48.6972,
+    "lng": 2.49567
+  },
+  {
+    "id": 145,
+    "name": "Chabad Seine et Marne",
+    "address": "15 Bis, Ave des Chardons, 77340 Pontault Combault",
+    "city": "Pontault-Combault",
+    "state": "",
+    "country": "France",
+    "lat": 48.79539,
+    "lng": 2.60571
+  },
+  {
+    "id": 146,
+    "name": "Beth Loubavitch Boulogne",
+    "address": "17 Rue de Seine, Boulogne, 92100",
+    "city": "Boulogne",
+    "state": "",
+    "country": "France",
+    "lat": 48.83435,
+    "lng": 2.23713
+  }
+]
