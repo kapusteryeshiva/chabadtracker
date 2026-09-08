@@ -11,288 +11,159 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<!-- Supabase SDK — swap in your project URL + anon key below -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root {
     --gold: #C8972B;
+    --gold-soft: #DAB95F;
     --gold-light: #F0D080;
     --navy: #1A2744;
-    --navy-deep: #0F1A30;
+    --navy-deep: #101C34;
     --cream: #FAF7F0;
     --green: #2E7D52;
     --green-light: #4CAF78;
-    --text: #1A1A1A;
-    --muted: #6B7280;
+    --text: #111827;
+    --muted: #8B90A0;
     --border: #E5E0D5;
     --card-bg: #FFFFFF;
+    /* Liquid glass system */
+    --glass-white: rgba(255,255,255,0.72);
+    --glass-white-strong: rgba(255,255,255,0.84);
+    --glass-dark: rgba(16,28,52,0.80);
+    --glass-blur: blur(40px) saturate(1.9) brightness(1.04);
+    --glass-blur-strong: blur(48px) saturate(2) brightness(1.02);
+    --glass-border: rgba(255,255,255,0.62);
+    --glass-highlight: inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -0.5px 0 rgba(255,255,255,0.35);
+    --shadow-soft: 0 8px 24px rgba(16,28,52,0.08), 0 2px 8px rgba(16,28,52,0.06);
+    --shadow-float: 0 18px 48px rgba(16,28,52,0.14), 0 6px 16px rgba(16,28,52,0.08);
+    --shadow-sheet: 0 24px 64px rgba(16,28,52,0.16), 0 4px 12px rgba(16,28,52,0.08);
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', sans-serif;
-    background: #E8E2D6;
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  body { font-family: 'Inter', sans-serif; background: #EDE8DD; color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
-  /* ── MAP BEHIND EVERYTHING ── */
-  #map {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: 0 !important;
-  }
+  /* MAP BEHIND EVERYTHING */
+  #map { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 0 !important; }
 
-  /* ── TOP FLOATING TASKBAR ── */
+  /* TOP FLOATING NAV */
   nav {
-    position: fixed;
-    top: 14px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(760px, calc(100vw - 20px));
-    height: 62px;
-    background: rgba(255,255,255,0.86);
-    backdrop-filter: blur(24px) saturate(1.6);
-    -webkit-backdrop-filter: blur(24px) saturate(1.6);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 8px 0 16px;
-    z-index: 1100;
-    border: 1px solid rgba(255,255,255,0.7);
-    box-shadow: 0 8px 32px rgba(15,26,48,0.14), 0 1px 0 rgba(255,255,255,0.8) inset;
+    position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
+    width: min(760px, calc(100vw - 20px)); height: 62px;
+    background: var(--glass-white-strong); backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur); border-radius: 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 8px 0 16px; z-index: 1100; position: fixed;
+    border: 0.5px solid var(--glass-border);
+    box-shadow: var(--glass-highlight), var(--shadow-soft);
+  }
+  nav::before {
+    content: ''; position: absolute; inset: 0; border-radius: 20px; pointer-events: none;
+    background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 45%);
   }
   .nav-logo {
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 1.25rem;
-    font-weight: 900;
-    color: var(--navy);
-    letter-spacing: -0.02em;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    flex-shrink: 0;
+    font-family: 'Frank Ruhl Libre', serif; font-size: 1.25rem; font-weight: 900;
+    color: var(--navy); letter-spacing: -0.02em;
+    display: flex; align-items: center; gap: 0.5rem;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .nav-logo::before {
+    content: '🕎'; width: 34px; height: 34px;
+    background: linear-gradient(180deg, #1E2E52, #101C34);
+    border-radius: 11px; display: grid; place-items: center; font-size: 1.05rem;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 3px 10px rgba(16,28,52,0.25);
+    border: 0.5px solid rgba(255,255,255,0.18);
   }
   .nav-logo span { color: var(--navy); font-weight: 400; }
-  .nav-logo::before {
-    content: '🕎';
-    width: 36px; height: 36px;
-    background: var(--navy-deep);
-    border-radius: 12px;
-    display: grid; place-items: center;
-    font-size: 1.1rem;
-  }
 
-  /* Bottom Dock */
+  /* BOTTOM DOCK */
   .nav-tabs {
-    position: fixed;
-    bottom: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(440px, calc(100vw - 24px));
-    height: 72px;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(28px) saturate(1.6);
-    -webkit-backdrop-filter: blur(28px) saturate(1.6);
-    border-radius: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 6px 8px;
-    z-index: 1100;
-    border: 1px solid rgba(255,255,255,0.8);
-    box-shadow: 0 16px 48px rgba(15,26,48,0.18), 0 0 0 1px rgba(255,255,255,0.6) inset;
-    gap: 0;
+    position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+    width: min(440px, calc(100vw - 24px)); height: 72px;
+    background: var(--glass-white-strong); backdrop-filter: var(--glass-blur-strong);
+    -webkit-backdrop-filter: var(--glass-blur-strong); border-radius: 26px;
+    display: flex; align-items: center; justify-content: space-around;
+    padding: 6px 8px; z-index: 1100;
+    border: 0.5px solid var(--glass-border);
+    box-shadow: var(--glass-highlight), var(--shadow-float);
   }
   .nav-tab {
-    background: transparent;
-    border: none;
-    color: var(--muted);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.68rem;
-    font-weight: 600;
-    padding: 6px 14px;
-    border-radius: 18px;
-    cursor: pointer;
+    background: transparent; border: none; color: var(--muted);
+    font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 600;
+    padding: 6px 14px; border-radius: 18px; cursor: pointer;
     transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    min-width: 62px;
-    position: relative;
+    display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 62px;
   }
   .nav-tab::before {
-    content: '';
-    font-size: 1.35rem;
-    width: 36px; height: 28px;
-    display: grid; place-items: center;
-    border-radius: 12px;
-    transition: all 0.25s;
+    content: ''; font-size: 1.35rem; width: 36px; height: 28px;
+    display: grid; place-items: center; border-radius: 12px; transition: all 0.25s;
   }
   .nav-tab:nth-child(1)::before { content: '🏠'; }
   .nav-tab:nth-child(2)::before { content: '🗺️'; }
   .nav-tab:nth-child(3)::before { content: '📍'; }
   .nav-tab:nth-child(4)::before { content: '🏆'; }
   .nav-tab:hover { color: var(--navy); }
-  .nav-tab.active {
-    background: var(--navy-deep);
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(15,26,48,0.25);
-    transform: translateY(-2px);
-  }
+  .nav-tab.active { background: var(--navy-deep); color: #fff; box-shadow: 0 4px 16px rgba(15,26,48,0.25); transform: translateY(-2px); }
   .nav-tab.active::before { background: rgba(255,255,255,0.12); }
 
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-left: auto;
-  }
-  .btn-nav {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    padding: 0.5rem 1.1rem;
-    border-radius: 99px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    height: 40px;
-  }
-  .btn-ghost {
-    background: rgba(26,39,68,0.08);
-    color: var(--navy);
-  }
-  .btn-gold {
-    background: var(--gold);
-    color: var(--navy-deep);
-    box-shadow: 0 4px 12px rgba(200,151,43,0.3);
-  }
-  .btn-ghost:hover, .btn-gold:hover { transform: translateY(-1px); }
+  .nav-right { display: flex; align-items: center; gap: 0.5rem; margin-left: auto; }
+  .btn-nav { font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 700; padding: 0.5rem 1.1rem; border-radius: 99px; border: none; cursor: pointer; transition: all 0.2s; height: 40px; }
+  .btn-ghost { background: rgba(255,255,255,0.68); color: var(--navy-deep); backdrop-filter: blur(12px); border: 0.5px solid rgba(16,28,52,0.08); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.88); transform: translateY(-0.5px); box-shadow: 0 4px 12px rgba(16,28,52,0.08); }
+  .btn-gold { background: linear-gradient(180deg, #E8BF6A, #C8972B); color: #1A1200; border: 0.5px solid rgba(120,80,10,0.18); box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 2px 8px rgba(200,151,43,0.28); }
+  .btn-gold:hover { transform: translateY(-0.5px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 6px 16px rgba(200,151,43,0.32); }
 
-  /* ── PAGES ── */
+  /* Auth mode badge */
+  .auth-mode-badge {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.6rem;
+    border-radius: 99px; margin-left: 0.5rem;
+  }
+  .badge-local { background: rgba(107,114,128,0.12); color: var(--muted); }
+  .badge-cloud { background: rgba(46,125,82,0.12); color: var(--green); }
+
+  /* PAGES */
   .page { display: none; position: relative; z-index: 1; padding-top: 90px; min-height: 100vh; pointer-events: none; }
   .page.active { display: block; pointer-events: auto; }
-  
-  /* Home */
-  #page-home {
-    background: transparent;
-    min-height: 100vh;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 110px 16px 110px;
-  }
-  #page-home.active { display: flex; flex-direction: column; }
-  .hero-menorah, .hero-title, .hero-subtitle, .hero-cta, .hero-stats {
-    position: relative;
-    z-index: 2;
-  }
-  .hero-wrap {
-    background: rgba(15,26,48,0.92);
-    backdrop-filter: blur(32px) saturate(1.2);
-    -webkit-backdrop-filter: blur(32px) saturate(1.2);
-    border-radius: 32px;
-    padding: 2.8rem 2.2rem 2rem;
-    width: min(560px, 100%);
-    text-align: center;
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 24px 64px rgba(0,0,0,0.35);
-  }
-  .hero-menorah {
-    font-size: 2.8rem;
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 0 20px rgba(200,151,43,0.5));
-  }
-  .hero-title {
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: clamp(2.2rem, 5vw, 3.2rem);
-    font-weight: 900;
-    color: #fff;
-    line-height: 1.05;
-    margin-bottom: 0.7rem;
-  }
-  .hero-title em { font-style: normal; color: var(--gold); }
-  .hero-subtitle {
-    font-size: 1rem;
-    color: rgba(255,255,255,0.55);
-    line-height: 1.6;
-    margin: 0 auto 2rem;
-    max-width: 420px;
-  }
-  .hero-cta { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--gold);
-    color: var(--navy-deep);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    padding: 0.85rem 1.8rem;
-    border-radius: 99px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 6px 20px rgba(200,151,43,0.35);
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(200,151,43,0.45); }
-  .btn-secondary {
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-    font-size: 0.95rem;
-    font-weight: 600;
-    padding: 0.85rem 1.8rem;
-    border-radius: 99px;
-    border: 1.5px solid rgba(255,255,255,0.18);
-    cursor: pointer;
-    backdrop-filter: blur(8px);
-  }
-  .hero-stats {
-    display: flex;
-    gap: 2rem;
-    margin-top: 1.8rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    justify-content: center;
-  }
-  .stat-item { text-align: center; }
-  .stat-num {
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: var(--gold);
-    display: block;
-  }
-  .stat-label {
-    font-size: 0.68rem;
-    color: rgba(255,255,255,0.45);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-top: 0.15rem;
-  }
 
-  /* Map Page UI */
+  /* HOME */
+  #page-home { background: transparent; min-height: 100vh; display: none; align-items: center; justify-content: center; padding: 110px 16px 110px; }
+  #page-home.active { display: flex; flex-direction: column; }
+  .hero-wrap {
+    background: var(--glass-dark); backdrop-filter: var(--glass-blur-strong);
+    -webkit-backdrop-filter: var(--glass-blur-strong); border-radius: 32px;
+    padding: 2.8rem 2.2rem 1.8rem; width: min(560px, 100%); text-align: center;
+    border: 0.5px solid rgba(255,255,255,0.16);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), var(--shadow-sheet);
+    position: relative; overflow: hidden;
+  }
+  .hero-wrap::before {
+    content: ''; position: absolute; inset: 0; border-radius: 32px; pointer-events: none;
+    background: radial-gradient(120% 70% at 50% 0%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 60%);
+  }
+  .hero-menorah { font-size: 2.8rem; margin-bottom: 1rem; filter: drop-shadow(0 0 20px rgba(200,151,43,0.5)); }
+  .hero-title { font-family: 'Frank Ruhl Libre', serif; font-size: clamp(2.2rem,5vw,3.2rem); font-weight: 900; color: #fff; line-height: 1.05; margin-bottom: 0.7rem; }
+  .hero-title em { font-style: normal; background: linear-gradient(180deg, #F7E8B5, #C8972B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-subtitle { font-size: 1rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin: 0 auto 2rem; max-width: 420px; }
+  .hero-cta { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--gold); color: var(--navy-deep); font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 700; padding: 0.85rem 1.8rem; border-radius: 99px; border: none; cursor: pointer; transition: all 0.2s; box-shadow: 0 6px 20px rgba(200,151,43,0.35); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(200,151,43,0.45); }
+  .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; font-size: 0.95rem; font-weight: 600; padding: 0.85rem 1.8rem; border-radius: 99px; border: 1.5px solid rgba(255,255,255,0.18); cursor: pointer; backdrop-filter: blur(8px); font-family: 'Inter', sans-serif; }
+  .hero-stats { display: flex; gap: 2rem; margin-top: 1.8rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); justify-content: center; }
+  .stat-item { text-align: center; }
+  .stat-num { font-family: 'Frank Ruhl Libre', serif; font-size: 1.6rem; font-weight: 900; color: var(--gold); display: block; }
+  .stat-label { font-size: 0.68rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.15rem; }
+
+  /* MAP */
   #page-map { padding: 0 !important; }
   #page-map.active { display: block; }
   .map-toolbar {
-    position: fixed;
-    top: 86px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: fixed; top: 86px; left: 50%; transform: translateX(-50%);
     width: min(520px, calc(100vw - 32px));
-    background: rgba(255,255,255,0.88);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 0.55rem 0.9rem;
-    border-radius: 99px;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    z-index: 1000;
-    border: 1px solid rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.88); backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); padding: 0.55rem 0.9rem;
+    border-radius: 99px; display: flex; align-items: center; gap: 0.75rem;
+    z-index: 1000; border: 1px solid rgba(255,255,255,0.7);
     box-shadow: 0 8px 24px rgba(15,26,48,0.12);
   }
   .map-toolbar-label { font-size: 0.78rem; font-weight: 700; color: var(--navy); }
@@ -302,164 +173,96 @@
   .legend-dot.visited { background: var(--green-light); }
   .legend-dot.unvisited { background: #5B7FCA; }
   .map-status {
-    position: fixed;
-    bottom: 100px;
-    left: 16px;
-    background: rgba(15,26,48,0.88);
-    backdrop-filter: blur(16px);
-    padding: 0.5rem 0.9rem;
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.6);
-    border-radius: 99px;
-    display: flex;
-    gap: 1rem;
-    z-index: 900;
+    position: fixed; bottom: 100px; left: 16px;
+    background: rgba(15,26,48,0.88); backdrop-filter: blur(16px);
+    padding: 0.5rem 0.9rem; font-size: 0.7rem; color: rgba(255,255,255,0.6);
+    border-radius: 99px; display: none; gap: 1rem; z-index: 900;
     border: 1px solid rgba(255,255,255,0.1);
   }
   .map-status strong { color: var(--gold); }
   .map-loading {
-    position: fixed;
-    inset: 0;
-    background: rgba(15,26,48,0.55);
-    backdrop-filter: blur(12px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 800;
-    gap: 1rem;
+    position: fixed; inset: 0; background: rgba(15,26,48,0.55); backdrop-filter: blur(12px);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 800; gap: 1rem;
   }
   .map-loading.hidden { display: none; }
   .spinner { width: 36px; height: 36px; border: 3px solid rgba(200,151,43,0.25); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .map-loading p { color: rgba(255,255,255,0.85); font-size: 0.88rem; font-weight: 600; }
 
-  /* List & Board Sheets */
-  #page-list, #page-board {
-    padding: 0;
-    padding-top: 88px;
-    padding-bottom: 100px;
-    display: none;
-    justify-content: center;
-  }
+  /* LIST & BOARD */
+  #page-list, #page-board { padding: 0; padding-top: 88px; padding-bottom: 100px; display: none; justify-content: center; }
   #page-list.active, #page-board.active { display: flex; }
-  .page-header {
-    max-width: 100%;
-    margin: 0 0 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .page-title {
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: var(--navy);
-  }
+  .page-header { max-width: 100%; margin: 0 0 1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .page-title { font-family: 'Frank Ruhl Libre', serif; font-size: 1.6rem; font-weight: 900; color: var(--navy); }
   .page-title span { color: var(--gold); }
   .board-wrap, .chabad-grid-wrap {
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(28px) saturate(1.4);
-    -webkit-backdrop-filter: blur(28px) saturate(1.4);
-    border-radius: 28px;
-    padding: 1.5rem;
-    width: min(920px, calc(100vw - 20px));
-    border: 1px solid rgba(255,255,255,0.7);
-    box-shadow: 0 16px 48px rgba(15,26,48,0.14);
-    max-height: calc(100vh - 180px);
-    overflow-y: auto;
+    background: var(--glass-white); backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur); border-radius: 26px; padding: 1.5rem;
+    width: min(920px, calc(100vw - 20px)); border: 0.5px solid var(--glass-border);
+    box-shadow: var(--glass-highlight), var(--shadow-sheet); max-height: calc(100vh - 180px); overflow-y: auto;
   }
   .chabad-grid-wrap::before, .board-wrap::before {
-    content: '';
-    width: 36px; height: 5px;
-    background: rgba(0,0,0,0.14);
-    border-radius: 99px;
-    display: block;
-    margin: 0 auto 1.2rem;
+    content: ''; width: 36px; height: 5px; background: rgba(0,0,0,0.14);
+    border-radius: 99px; display: block; margin: 0 auto 1.2rem;
   }
   .search-bar {
-    padding: 0.65rem 1rem 0.65rem 2.2rem;
-    border: 1px solid rgba(0,0,0,0.08);
-    border-radius: 99px;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.88rem;
+    padding: 0.65rem 1rem 0.65rem 2.2rem; border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 99px; font-family: 'Inter', sans-serif; font-size: 0.88rem;
     background: rgba(0,0,0,0.05) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='6'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E") no-repeat 12px center;
-    outline: none;
-    min-width: 200px;
-    flex: 1;
-    max-width: 320px;
-    transition: all 0.2s;
+    outline: none; min-width: 200px; flex: 1; max-width: 320px; transition: all 0.2s;
   }
   .search-bar:focus { background-color: #fff; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(200,151,43,0.15); }
-  .chabad-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 0.75rem;
-  }
-  .chabad-card {
-    background: #fff;
-    border-radius: 18px;
-    padding: 1rem 1.15rem;
-    border: 1px solid rgba(0,0,0,0.06);
-    display: flex;
-    align-items: flex-start;
-    gap: 0.85rem;
-    transition: all 0.2s;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  }
-  .chabad-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: rgba(200,151,43,0.25); }
-  .chabad-card.visited { border-color: rgba(46,125,82,0.25); background: #F6FBF7; }
-  .card-icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-size: 1.15rem; flex-shrink: 0; }
-  .card-icon.visited { background: var(--green); }
-  .card-icon.unvisited { background: var(--navy-deep); }
+  .chabad-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 0.75rem; }
+  .chabad-card { background: rgba(255,255,255,0.86); backdrop-filter: blur(16px); border-radius: 18px; padding: 1rem 1.15rem; border: 0.5px solid rgba(16,28,52,0.06); display: flex; align-items: flex-start; gap: 0.85rem; transition: all 0.2s; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 2px 8px rgba(16,28,52,0.04); }
+  .chabad-card:hover { transform: translateY(-1px); background: #fff; border-color: rgba(16,28,52,0.10); box-shadow: inset 0 1px 0 #fff, 0 8px 24px rgba(16,28,52,0.08); }
+  .chabad-card.visited { background: rgba(16,28,52,0.92); border-color: rgba(16,28,52,0.92); box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 8px 24px rgba(16,28,52,0.18); }
+  .chabad-card.visited .card-name { color: #fff; }
+  .chabad-card.visited .card-location { color: rgba(255,255,255,0.56); }
+  .card-icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-size: 1.1rem; flex-shrink: 0; background: rgba(255,255,255,0.9); border: 0.5px solid rgba(16,28,52,0.06); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); }
+  .card-icon.visited { background: linear-gradient(180deg, #F3E2A8, #DAB95F); border-color: rgba(120,80,10,0.18); }
+  .card-icon.unvisited { background: rgba(16,28,52,0.08); }
   .card-body { flex: 1; min-width: 0; }
   .card-name { font-weight: 700; font-size: 0.9rem; color: var(--navy); margin-bottom: 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .card-location { font-size: 0.76rem; color: var(--muted); margin-bottom: 0.35rem; }
   .card-badge { display: inline-block; font-size: 0.64rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .badge-visited { background: #D1FAE5; color: var(--green); }
+  .badge-visited { background: rgba(255,255,255,0.14); color: #F7E8B5; border: 0.5px solid rgba(247,232,181,0.22); }
   .badge-not { background: #F2F0EB; color: var(--muted); }
 
-  /* Leaderboard */
+  /* LEADERBOARD */
   .board-podium { display: flex; align-items: flex-end; justify-content: center; gap: 0.75rem; margin-bottom: 1.8rem; }
   .podium-item { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
   .podium-avatar { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 1rem; color: #fff; border: 2px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
   .podium-avatar.p1 { background: var(--gold); width: 60px; height: 60px; font-size: 1.2rem; }
   .podium-avatar.p2 { background: #9CA3AF; }
   .podium-avatar.p3 { background: #C87941; }
-  .podium-block { width: 84px; border-radius: 12px 12px 0 0; display: grid; place-items: center; font-family: 'Frank Ruhl Libre', serif; font-size: 1.2rem; font-weight: 900; color: #fff; }
-  .podium-block.p1 { background: var(--gold); height: 78px; width: 96px; }
-  .podium-block.p2 { background: #9CA3AF; height: 58px; }
-  .podium-block.p3 { background: #C87941; height: 44px; }
+  .podium-block { width: 84px; border-radius: 12px 12px 6px 6px; display: grid; place-items: center; font-size: 1rem; border: 0.5px solid rgba(16,28,52,0.10); background: rgba(255,255,255,0.8); }
+  .podium-block.p1 { background: linear-gradient(180deg, #FFF6D1, #E8C96A); height: 78px; width: 96px; }
+  .podium-block.p2 { background: rgba(200,200,210,0.7); height: 58px; }
+  .podium-block.p3 { background: rgba(200,121,65,0.6); height: 44px; }
   .podium-name { font-size: 0.75rem; font-weight: 600; color: var(--navy); }
   .podium-count { font-size: 0.68rem; color: var(--muted); }
   .board-list { display: flex; flex-direction: column; gap: 0.5rem; }
-  .board-row { background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 14px; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.75rem; }
-  .board-row.me { border-color: var(--gold); background: #FFFBF0; box-shadow: 0 2px 12px rgba(200,151,43,0.15); }
+  .board-row { background: rgba(255,255,255,0.76); border: 0.5px solid rgba(16,28,52,0.06); border-radius: 14px; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.75rem; backdrop-filter: blur(12px); }
+  .board-row.me { background: rgba(16,28,52,0.92); color: #fff; border-color: rgba(16,28,52,0.92); }
+  .board-row.me .board-name { color: #fff; }
+  .board-row.me .board-count { color: #fff; }
   .board-rank { font-family: 'Frank Ruhl Libre', serif; font-size: 1rem; font-weight: 900; color: var(--muted); width: 26px; text-align: center; }
-  .board-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--navy); color: #fff; font-weight: 700; font-size: 0.8rem; display: grid; place-items: center; }
+  .board-avatar { width: 32px; height: 32px; border-radius: 10px; background: rgba(255,255,255,0.9); color: var(--navy-deep); font-weight: 800; font-size: 0.76rem; display: grid; place-items: center; border: 0.5px solid rgba(16,28,52,0.06); }
+  .board-row.me .board-avatar { background: linear-gradient(180deg, #F3E2A8, #DAB95F); color: #1A1200; }
   .board-name { font-weight: 600; font-size: 0.88rem; color: var(--navy); flex: 1; }
   .board-you { font-size: 0.65rem; color: var(--gold); font-weight: 700; background: rgba(200,151,43,0.12); padding: 0.15rem 0.4rem; border-radius: 99px; margin-left: 0.4rem; }
   .board-count { font-family: 'Frank Ruhl Libre', serif; font-size: 1.1rem; font-weight: 900; color: var(--navy); }
   .board-count span { font-size: 0.68rem; font-weight: 500; color: var(--muted); font-family: 'Inter', sans-serif; margin-left: 0.2rem; }
 
-  /* Profile Bar */
+  /* PROFILE */
   .profile-bar {
-    position: fixed;
-    right: 12px; top: 86px;
-    width: 300px;
-    background: rgba(255,255,255,0.94);
-    backdrop-filter: blur(28px) saturate(1.5);
-    -webkit-backdrop-filter: blur(28px) saturate(1.5);
-    border-radius: 24px;
-    padding: 1.25rem;
-    z-index: 1200;
-    transform: translateX(120%);
+    position: fixed; right: 12px; top: 86px; width: 300px;
+    background: rgba(255,255,255,0.94); backdrop-filter: blur(28px) saturate(1.5);
+    -webkit-backdrop-filter: blur(28px) saturate(1.5); border-radius: 24px; padding: 1.25rem;
+    z-index: 1200; transform: translateX(120%);
     transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-    border: 1px solid rgba(255,255,255,0.7);
-    box-shadow: 0 16px 48px rgba(15,26,48,0.18);
+    border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 16px 48px rgba(15,26,48,0.18);
   }
   .profile-bar.open { transform: translateX(0); }
   .profile-header { display: flex; flex-direction: column; align-items: center; text-align: center; padding-bottom: 1.1rem; border-bottom: 1px solid rgba(0,0,0,0.08); margin-bottom: 1rem; }
@@ -475,11 +278,13 @@
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--green-light)); border-radius: 99px; transition: width 0.6s ease; }
   .btn-logout { width: 100%; margin-top: 1.25rem; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.08); color: var(--muted); font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 600; padding: 0.6rem; border-radius: 99px; cursor: pointer; transition: all 0.15s; }
   .btn-logout:hover { background: #FEF2F2; border-color: #FECACA; color: #DC2626; }
+  .upgrade-btn { width: 100%; margin-top: 0.6rem; background: var(--gold); border: none; color: var(--navy-deep); font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 700; padding: 0.6rem; border-radius: 99px; cursor: pointer; transition: all 0.15s; }
+  .upgrade-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(200,151,43,0.3); }
 
-  /* Modals & Toast */
+  /* MODALS */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(10,16,28,0.55); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 2000; align-items: center; justify-content: center; }
   .modal-overlay.open { display: flex; }
-  .modal { background: rgba(255,255,255,0.96); backdrop-filter: blur(24px); border-radius: 24px; padding: 2rem; width: min(420px, 92vw); box-shadow: 0 24px 64px rgba(0,0,0,0.25); position: relative; border: 1px solid rgba(255,255,255,0.8); }
+  .modal { background: rgba(255,255,255,0.86); backdrop-filter: var(--glass-blur-strong); -webkit-backdrop-filter: var(--glass-blur-strong); border-radius: 24px; padding: 2rem; width: min(420px,92vw); box-shadow: var(--glass-highlight), 0 24px 64px rgba(16,28,52,0.18); position: relative; border: 0.5px solid rgba(255,255,255,0.7); }
   .modal-close { position: absolute; top: 1rem; right: 1.1rem; background: rgba(0,0,0,0.06); border: none; font-size: 1.1rem; color: var(--muted); cursor: pointer; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; }
   .modal h2 { font-family: 'Frank Ruhl Libre', serif; font-size: 1.5rem; font-weight: 900; color: var(--navy); margin-bottom: 0.25rem; }
   .modal p { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.3rem; }
@@ -491,7 +296,13 @@
   .btn-submit:hover { background: #000; transform: translateY(-1px); }
   .modal-switch { text-align: center; margin-top: 1rem; font-size: 0.82rem; color: var(--muted); }
   .modal-switch a { color: var(--gold); font-weight: 700; text-decoration: none; cursor: pointer; }
-  .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(120px); background: var(--navy-deep); color: #fff; font-size: 0.84rem; font-weight: 600; padding: 0.7rem 1.25rem; border-radius: 99px; z-index: 3000; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); white-space: nowrap; pointer-events: none; box-shadow: 0 8px 24px rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.1); }
+
+  /* Mode toggle in modal */
+  .mode-toggle { display: flex; background: rgba(0,0,0,0.05); border-radius: 12px; padding: 3px; margin-bottom: 1.2rem; gap: 3px; }
+  .mode-btn { flex: 1; padding: 0.5rem; border: none; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; background: transparent; color: var(--muted); }
+  .mode-btn.active { background: #fff; color: var(--navy); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+  .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(120px); background: rgba(16,28,52,0.90); backdrop-filter: blur(20px); color: #fff; font-size: 0.84rem; font-weight: 600; padding: 0.7rem 1.25rem; border-radius: 99px; z-index: 3000; transition: all 0.32s cubic-bezier(0.32,0.72,0,1); white-space: nowrap; pointer-events: none; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 8px 24px rgba(16,28,52,0.22); border: 0.5px solid rgba(255,255,255,0.14); }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .hidden { display: none !important; }
 
@@ -506,10 +317,14 @@
 </head>
 <body>
 
+<!-- MAP (always behind everything) -->
+<div id="map"></div>
+
 <!-- TOP NAV -->
 <nav>
   <a class="nav-logo" href="#" onclick="showPage('home')"><span>Chabad</span>Map</a>
   <div class="nav-right">
+    <span class="auth-mode-badge badge-local hidden" id="mode-badge" title="Temporary local account — data stays in this browser only">💾 Local</span>
     <button class="btn-nav btn-ghost hidden" id="nav-profile-btn" onclick="toggleProfile()">Profile</button>
     <button class="btn-nav btn-ghost" id="nav-login-btn" onclick="openModal('login')">Sign In</button>
     <button class="btn-nav btn-gold" id="nav-signup-btn" onclick="openModal('signup')">Join Free</button>
@@ -529,29 +344,20 @@
   <div class="hero-wrap">
     <div class="hero-menorah">🕎</div>
     <h1 class="hero-title">How many<br><em>Chabad Houses</em><br>have you visited?</h1>
-    <p class="hero-subtitle">Log every Chabad House you've stepped into, watch your personal map turn green, and climb the global leaderboard.</p>
+    <p class="hero-subtitle">Log every Chabad House, watch your map turn green, and climb the global leaderboard.</p>
     <div class="hero-cta">
       <button class="btn-primary" onclick="openModal('signup')">Start Logging</button>
       <button class="btn-secondary" onclick="showPage('board')">Leaderboard</button>
     </div>
     <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-num" id="stat-locations">5,000+</span>
-        <div class="stat-label">Houses</div>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num" id="stat-members">1,240</span>
-        <div class="stat-label">Members</div>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num" id="stat-visits">48,300</span>
-        <div class="stat-label">Visits</div>
-      </div>
+      <div class="stat-item"><span class="stat-num">5,000+</span><div class="stat-label">Houses</div></div>
+      <div class="stat-item"><span class="stat-num">1,240</span><div class="stat-label">Members</div></div>
+      <div class="stat-item"><span class="stat-num">48,300</span><div class="stat-label">Visits</div></div>
     </div>
   </div>
 </div>
 
-<!-- MAP -->
+<!-- MAP PAGE -->
 <div class="page" id="page-map">
   <div class="map-toolbar">
     <span class="map-toolbar-label">🌍 Global Map</span>
@@ -560,16 +366,13 @@
       <div class="legend-item"><div class="legend-dot unvisited"></div> Not yet</div>
     </div>
   </div>
-  <div style="position:relative; flex:1; display:flex; flex-direction:column;">
-    <div id="map" style="flex:1;"></div>
-    <div class="map-loading" id="map-loading">
-      <div class="spinner"></div>
-      <p id="map-loading-msg">Loading Chabad Houses…</p>
-    </div>
-    <div class="map-status" id="map-status" style="display:none;">
-      <span>Data: <strong>Repository JSON</strong></span>
-      <span id="map-count-label">Loading…</span>
-    </div>
+  <div class="map-loading" id="map-loading">
+    <div class="spinner"></div>
+    <p id="map-loading-msg">Loading Chabad Houses…</p>
+  </div>
+  <div class="map-status" id="map-status">
+    <span>Data: <strong id="map-source-label">Repository JSON</strong></span>
+    <span id="map-count-label">Loading…</span>
   </div>
 </div>
 
@@ -601,6 +404,7 @@
     <div class="profile-avatar" id="prof-avatar">?</div>
     <div class="profile-name" id="prof-name">—</div>
     <div class="profile-email" id="prof-email">—</div>
+    <span class="auth-mode-badge" id="prof-mode-badge" style="margin-top:0.3rem;"></span>
   </div>
   <div class="profile-stat"><span class="profile-stat-label">Visited</span><span class="profile-stat-val" id="prof-visited">0</span></div>
   <div class="profile-stat"><span class="profile-stat-label">Total listed</span><span class="profile-stat-val" id="prof-total">—</span></div>
@@ -609,16 +413,24 @@
     <div class="progress-label"><span>Coverage</span><span id="prof-pct">0%</span></div>
     <div class="progress-track"><div class="progress-fill" id="prof-fill" style="width:0%"></div></div>
   </div>
+  <!-- Upgrade prompt shown only to local users -->
+  <button class="upgrade-btn hidden" id="upgrade-btn" onclick="openModal('signup'); toggleProfile();">☁️ Upgrade to Cloud Account</button>
   <button class="btn-logout" onclick="logout()">Sign Out</button>
 </div>
 
-<!-- AUTH MODALS -->
+<!-- AUTH MODAL -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">×</button>
+
+    <!-- SIGN UP -->
     <div id="form-signup">
       <h2>Join ChabadMap</h2>
-      <p>Create your free account stored in local storage.</p>
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="su-mode-local" onclick="setSignupMode('local')">💾 Local (instant)</button>
+        <button class="mode-btn" id="su-mode-cloud" onclick="setSignupMode('cloud')">☁️ Cloud account</button>
+      </div>
+      <p id="su-mode-desc">Stored in this browser only. Fast, no email needed. You can upgrade to a cloud account later.</p>
       <div class="form-group">
         <label>Full Name</label>
         <input type="text" id="su-name" placeholder="Moshe Goldstein">
@@ -631,21 +443,27 @@
         <label>Password</label>
         <input type="password" id="su-pass" placeholder="••••••••">
       </div>
-      <button class="btn-submit" onclick="doSignup()">Create Account</button>
+      <button class="btn-submit" id="su-btn" onclick="doSignup()">Create Local Account</button>
       <div class="modal-switch">Already a member? <a onclick="switchModal('login')">Sign in</a></div>
     </div>
+
+    <!-- SIGN IN -->
     <div id="form-login" class="hidden">
       <h2>Welcome back</h2>
-      <p>Sign in to your local account.</p>
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="li-mode-local" onclick="setLoginMode('local')">💾 Local</button>
+        <button class="mode-btn" id="li-mode-cloud" onclick="setLoginMode('cloud')">☁️ Cloud</button>
+      </div>
+      <p id="li-mode-desc">Sign in to your local browser account.</p>
       <div class="form-group">
         <label>Email</label>
         <input type="email" id="li-email" placeholder="moshe@example.com">
       </div>
-      <div class="form-group">
+      <div class="form-group" id="li-pass-group">
         <label>Password</label>
         <input type="password" id="li-pass" placeholder="••••••••">
       </div>
-      <button class="btn-submit" onclick="doLogin()">Sign In</button>
+      <button class="btn-submit" id="li-btn" onclick="doLogin()">Sign In</button>
       <div class="modal-switch">New here? <a onclick="switchModal('signup')">Create account</a></div>
     </div>
   </div>
@@ -654,99 +472,179 @@
 <div class="toast" id="toast"></div>
 
 <script>
+// ════════════════════════════════════════════════════════════════════════════
+// ── SUPABASE CONFIG ─────────────────────────────────────────────────────────
+// When you're ready to go live:
+// 1. Create a project at https://supabase.com
+// 2. Run this SQL in your Supabase SQL editor:
+//
+//    create table profiles (
+//      id uuid references auth.users primary key,
+//      display_name text,
+//      created_at timestamptz default now()
+//    );
+//    create table visits (
+//      id serial primary key,
+//      user_id uuid references auth.users not null,
+//      chabad_id integer not null,
+//      visited_at timestamptz default now(),
+//      unique(user_id, chabad_id)
+//    );
+//    -- Enable Row Level Security
+//    alter table profiles enable row level security;
+//    alter table visits enable row level security;
+//    create policy "Users manage own profile" on profiles for all using (auth.uid() = id);
+//    create policy "Users manage own visits" on visits for all using (auth.uid() = user_id);
+//
+// 3. Paste your project URL and anon key below and delete the two lines marked REMOVE:
+// ════════════════════════════════════════════════════════════════════════════
 
-// ─── LOCAL STORAGE WRAPPER ─────────────────────────────────────────────────
+const SUPABASE_URL  = '';   // e.g. 'https://xyzxyz.supabase.co'
+const SUPABASE_ANON = '';   // your anon/public key
+
+const SUPABASE_ENABLED = !!(SUPABASE_URL && SUPABASE_ANON);
+const sb = SUPABASE_ENABLED
+  ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON)
+  : null;
+
+// ─── LOCAL STORAGE WRAPPER ──────────────────────────────────────────────────
 const Store = {
-  get(key, fallback) {
-    try { const v = localStorage.getItem(key); return v !== null ? JSON.parse(v) : fallback; }
-    catch(e) { return fallback; }
-  },
-  set(key, val) {
-    try { localStorage.setItem(key, JSON.stringify(val)); return true; }
-    catch(e) { console.warn('localStorage unavailable:', e); return false; }
-  },
-  remove(key) { try { localStorage.removeItem(key); } catch(e) {} }
+  get(k, fb) { try { const v = localStorage.getItem(k); return v !== null ? JSON.parse(v) : fb; } catch { return fb; } },
+  set(k, v)  { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e) { console.warn(e); return false; } },
+  del(k)     { try { localStorage.removeItem(k); } catch {} }
 };
 
 // ─── DATA ───────────────────────────────────────────────────────────────────
-
 let CHABAD_HOUSES = [];
-let dataFetched = false;
+let dataFetched   = false;
 
 const MOCK_LEADERBOARD = [
-  { name: "Shmuel Katz", initials: "SK", count: 312 },
-  { name: "Rivka Levi", initials: "RL", count: 287 },
-  { name: "Dovid Stern", initials: "DS", count: 261 },
-  { name: "Chana Friedman", initials: "CF", count: 248 },
-  { name: "Yaakov Blum", initials: "YB", count: 219 },
-  { name: "Miriam Cohen", initials: "MC", count: 198 },
-  { name: "Baruch Weiss", initials: "BW", count: 177 },
-  { name: "Esther Shapiro", initials: "ES", count: 155 },
+  { name: 'Shmuel Katz',    initials: 'SK', count: 312 },
+  { name: 'Rivka Levi',     initials: 'RL', count: 287 },
+  { name: 'Dovid Stern',    initials: 'DS', count: 261 },
+  { name: 'Chana Friedman', initials: 'CF', count: 248 },
+  { name: 'Yaakov Blum',    initials: 'YB', count: 219 },
+  { name: 'Miriam Cohen',   initials: 'MC', count: 198 },
+  { name: 'Baruch Weiss',   initials: 'BW', count: 177 },
+  { name: 'Esther Shapiro', initials: 'ES', count: 155 },
 ];
 
-// ─── STATE ──────────────────────────────────────────────────────────────────
+// ─── AUTH STATE ──────────────────────────────────────────────────────────────
+// currentUser: { name, email, mode: 'local'|'cloud', supabaseId? }
+let currentUser   = null;
+let signupMode    = 'local';   // what the modal is currently showing
+let loginMode     = 'local';
 
-let currentUser = null;
-let mapInstance = null;
-let mapMarkers = [];
+// ─── LOCAL ACCOUNT HELPERS ──────────────────────────────────────────────────
+function getLocalUsers()   { return Store.get('cm_users', {}); }
+function saveLocalUsers(u) { Store.set('cm_users', u); }
 
-function getUsers() { return Store.get('cm_users', {}); }
-function saveUsers(u) { Store.set('cm_users', u); }
+function getVisitedLocal() {
+  if (!currentUser) return [];
+  const u = getLocalUsers()[currentUser.email];
+  return u?.visited || [];
+}
 
+// ─── CLOUD ACCOUNT HELPERS (Supabase) ───────────────────────────────────────
+let cloudVisited = [];   // cached array of chabad_id numbers for current cloud user
+
+async function loadCloudVisits() {
+  if (!sb || !currentUser?.supabaseId) return;
+  const { data } = await sb.from('visits').select('chabad_id').eq('user_id', currentUser.supabaseId);
+  cloudVisited = data ? data.map(r => r.chabad_id) : [];
+}
+
+// ─── UNIFIED VISIT HELPERS ───────────────────────────────────────────────────
 function getVisited() {
   if (!currentUser) return [];
-  const users = getUsers();
-  const u = users[currentUser.email];
-  return u ? (u.visited || []) : [];
+  return currentUser.mode === 'cloud' ? cloudVisited : getVisitedLocal();
 }
 
 function isVisited(id) { return getVisited().includes(id); }
 
-function toggleVisit(id) {
+async function toggleVisit(id) {
   if (!currentUser) return;
-  const users = getUsers();
-  const u = users[currentUser.email];
-  if (!u) return;
-  if (!Array.isArray(u.visited)) u.visited = [];
-  const idx = u.visited.indexOf(id);
-  if (idx === -1) u.visited.push(id);
-  else u.visited.splice(idx, 1);
-  saveUsers(users);
-  showToast(idx === -1 ? '✅ Marked as visited!' : '↩️ Removed from visited');
-  updateMapMarkers();
+
+  if (currentUser.mode === 'local') {
+    const users = getLocalUsers();
+    const u = users[currentUser.email];
+    if (!u) return;
+    if (!Array.isArray(u.visited)) u.visited = [];
+    const idx = u.visited.indexOf(id);
+    if (idx === -1) u.visited.push(id);
+    else u.visited.splice(idx, 1);
+    saveLocalUsers(users);
+    showToast(idx === -1 ? '✅ Marked as visited!' : '↩️ Removed from visited');
+  } else {
+    // Cloud
+    if (cloudVisited.includes(id)) {
+      await sb.from('visits').delete().eq('user_id', currentUser.supabaseId).eq('chabad_id', id);
+      cloudVisited = cloudVisited.filter(v => v !== id);
+      showToast('↩️ Removed from visited');
+    } else {
+      await sb.from('visits').insert({ user_id: currentUser.supabaseId, chabad_id: id });
+      cloudVisited.push(id);
+      showToast('✅ Marked as visited!');
+    }
+  }
+
+  renderMapMarkers();
   updateProfileBar();
   renderList();
 }
 
-// ─── AUTH ────────────────────────────────────────────────────────────────────
+// ─── AUTH MODAL MODE TOGGLES ─────────────────────────────────────────────────
+function setSignupMode(m) {
+  signupMode = m;
+  document.getElementById('su-mode-local').classList.toggle('active', m === 'local');
+  document.getElementById('su-mode-cloud').classList.toggle('active', m === 'cloud');
+  const isCloud = m === 'cloud';
+  document.getElementById('su-mode-desc').textContent = isCloud
+    ? (SUPABASE_ENABLED ? 'Your visits sync across all devices. Requires email + password.' : '⚠️ Cloud accounts not yet configured — see SUPABASE_URL in the code.')
+    : 'Stored in this browser only. Fast, no email needed. Upgrade to cloud later.';
+  document.getElementById('su-btn').textContent = isCloud ? 'Create Cloud Account' : 'Create Local Account';
+}
 
-function doSignup() {
+function setLoginMode(m) {
+  loginMode = m;
+  document.getElementById('li-mode-local').classList.toggle('active', m === 'local');
+  document.getElementById('li-mode-cloud').classList.toggle('active', m === 'cloud');
+  document.getElementById('li-mode-desc').textContent = m === 'cloud'
+    ? (SUPABASE_ENABLED ? 'Sign in with your cloud account — visits sync everywhere.' : '⚠️ Cloud accounts not yet configured.')
+    : 'Sign in to your local browser account.';
+  document.getElementById('li-btn').textContent = m === 'cloud' ? 'Sign In (Cloud)' : 'Sign In (Local)';
+}
+
+// ─── SIGN UP ─────────────────────────────────────────────────────────────────
+async function doSignup() {
   const nameEl  = document.getElementById('su-name');
   const emailEl = document.getElementById('su-email');
   const passEl  = document.getElementById('su-pass');
-  if (!nameEl || !emailEl || !passEl) { showToast('⚠️ Form not found'); return; }
-
-  const name  = nameEl.value.trim();
-  const email = emailEl.value.trim().toLowerCase();
-  const pass  = passEl.value;
+  const name    = nameEl.value.trim();
+  const email   = emailEl.value.trim().toLowerCase();
+  const pass    = passEl.value;
 
   if (!name)  { showToast('⚠️ Please enter your name');     nameEl.focus();  return; }
   if (!email) { showToast('⚠️ Please enter your email');    emailEl.focus(); return; }
   if (!pass)  { showToast('⚠️ Please enter a password');    passEl.focus();  return; }
 
-  const users = getUsers();
-  if (users[email]) { showToast('⚠️ Email already registered — please sign in'); return; }
-
-  users[email] = { name, email, pass, visited: [] };
-  const saved = saveUsers(users);
-  if (!saved) {
-    showToast('⚠️ Could not save — localStorage blocked');
-    return;
+  if (signupMode === 'cloud') {
+    if (!SUPABASE_ENABLED) { showToast('⚠️ Supabase not configured yet'); return; }
+    const { data, error } = await sb.auth.signUp({ email, password: pass, options: { data: { display_name: name } } });
+    if (error) { showToast('⚠️ ' + error.message); return; }
+    // Insert profile row
+    await sb.from('profiles').insert({ id: data.user.id, display_name: name });
+    currentUser = { name, email, mode: 'cloud', supabaseId: data.user.id };
+    await loadCloudVisits();
+  } else {
+    const users = getLocalUsers();
+    if (users[email]) { showToast('⚠️ Email already registered — sign in instead'); return; }
+    users[email] = { name, email, pass, visited: [] };
+    if (!saveLocalUsers(users)) { showToast('⚠️ Could not save — localStorage blocked'); return; }
+    currentUser = { name, email, mode: 'local' };
   }
 
-  currentUser = { name, email };
   Store.set('cm_current', currentUser);
-
   closeModal();
   updateNavForAuth();
   updateProfileBar();
@@ -754,34 +652,45 @@ function doSignup() {
   showPage('map');
 }
 
-function doLogin() {
+// ─── SIGN IN ─────────────────────────────────────────────────────────────────
+async function doLogin() {
   const emailEl = document.getElementById('li-email');
   const passEl  = document.getElementById('li-pass');
-  if (!emailEl || !passEl) { showToast('⚠️ Form not found'); return; }
-
-  const email = emailEl.value.trim().toLowerCase();
-  const pass  = passEl.value;
+  const email   = emailEl.value.trim().toLowerCase();
+  const pass    = passEl.value;
 
   if (!email) { showToast('⚠️ Please enter your email');    emailEl.focus(); return; }
   if (!pass)  { showToast('⚠️ Please enter your password'); passEl.focus();  return; }
 
-  const users = getUsers();
-  const u = users[email];
-  if (!u)              { showToast('⚠️ Account not found'); return; }
-  if (u.pass !== pass) { showToast('⚠️ Incorrect password'); return; }
+  if (loginMode === 'cloud') {
+    if (!SUPABASE_ENABLED) { showToast('⚠️ Supabase not configured yet'); return; }
+    const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+    if (error) { showToast('⚠️ ' + error.message); return; }
+    const name = data.user.user_metadata?.display_name || email.split('@')[0];
+    currentUser = { name, email, mode: 'cloud', supabaseId: data.user.id };
+    await loadCloudVisits();
+  } else {
+    const users = getLocalUsers();
+    const u = users[email];
+    if (!u)              { showToast('⚠️ Account not found');   return; }
+    if (u.pass !== pass) { showToast('⚠️ Incorrect password');  return; }
+    currentUser = { name: u.name, email, mode: 'local' };
+  }
 
-  currentUser = { name: u.name, email };
   Store.set('cm_current', currentUser);
   closeModal();
   updateNavForAuth();
   updateProfileBar();
-  showToast('👋 Welcome back, ' + u.name + '!');
+  showToast('👋 Welcome back, ' + currentUser.name + '!');
   showPage('map');
 }
 
-function logout() {
+// ─── SIGN OUT ─────────────────────────────────────────────────────────────────
+async function logout() {
+  if (currentUser?.mode === 'cloud' && sb) await sb.auth.signOut();
   currentUser = null;
-  Store.remove('cm_current');
+  cloudVisited = [];
+  Store.del('cm_current');
   updateNavForAuth();
   document.getElementById('profile-bar').classList.remove('open');
   showPage('home');
@@ -795,119 +704,92 @@ function requireAuth(fn) {
 
 function updateNavForAuth() {
   const loggedIn = !!currentUser;
+  const isLocal  = currentUser?.mode === 'local';
   document.getElementById('nav-login-btn').classList.toggle('hidden', loggedIn);
   document.getElementById('nav-signup-btn').classList.toggle('hidden', loggedIn);
   document.getElementById('nav-profile-btn').classList.toggle('hidden', !loggedIn);
+  const badge = document.getElementById('mode-badge');
+  badge.classList.toggle('hidden', !loggedIn);
+  if (loggedIn) {
+    badge.textContent = isLocal ? '💾 Local' : '☁️ Cloud';
+    badge.className   = 'auth-mode-badge ' + (isLocal ? 'badge-local' : 'badge-cloud');
+  }
 }
 
 // ─── MODAL ───────────────────────────────────────────────────────────────────
-
 function openModal(which) {
   document.getElementById('modal-overlay').classList.add('open');
   switchModal(which);
 }
-
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('open');
-}
-
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
 function switchModal(which) {
   document.getElementById('form-signup').classList.toggle('hidden', which !== 'signup');
-  document.getElementById('form-login').classList.toggle('hidden', which !== 'login');
+  document.getElementById('form-login').classList.toggle('hidden',  which !== 'login');
 }
 
 // ─── PAGES ───────────────────────────────────────────────────────────────────
-
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
-
   const tabs = document.querySelectorAll('.nav-tab');
-  const pageIndex = ['home','map','list','board'].indexOf(id);
-  if (pageIndex >= 0) tabs[pageIndex].classList.add('active');
-
-  if (id === 'map') initMap();
-  if (id === 'list') renderList();
+  const idx  = ['home','map','list','board'].indexOf(id);
+  if (idx >= 0) tabs[idx].classList.add('active');
+  if (id === 'map')   initMap();
+  if (id === 'list')  renderList();
   if (id === 'board') renderBoard();
-
   document.getElementById('profile-bar').classList.remove('open');
 }
 
-// ─── MAP (WITH OSM TILES RESTORED) ──────────────────────────────────────────
-
+// ─── MAP ─────────────────────────────────────────────────────────────────────
+let mapInstance  = null;
 let clusterGroup = null;
+let mapMarkers   = [];
 
 async function loadChabadData() {
   const loadEl  = document.getElementById('map-loading');
   const msgEl   = document.getElementById('map-loading-msg');
   const statEl  = document.getElementById('map-status');
   const countEl = document.getElementById('map-count-label');
-
   if (loadEl) loadEl.classList.remove('hidden');
   if (msgEl)  msgEl.textContent = 'Loading Chabad Houses…';
-
   try {
     const res = await fetch('./chabad-houses.json');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     CHABAD_HOUSES = await res.json();
-
     CHABAD_HOUSES.forEach((ch, i) => ch.id = i);
-
     dataFetched = true;
     if (loadEl)  loadEl.classList.add('hidden');
-    if (statEl)  statEl.style.display = 'flex';
-    if (countEl) countEl.textContent = `${CHABAD_HOUSES.length} Chabad Houses loaded`;
-
+    if (statEl)  { statEl.style.display = 'flex'; }
+    if (countEl) countEl.textContent = CHABAD_HOUSES.length + ' Chabad Houses loaded';
     renderMapMarkers();
     renderList();
-
   } catch (err) {
     console.error('Failed to load chabad-houses.json:', err);
-    if (msgEl) msgEl.textContent = '⚠️ Could not load chabad-houses.json';
+    if (msgEl) msgEl.textContent = '⚠️ Could not load chabad-houses.json — serve via a local server or GitHub Pages';
   }
 }
 
 function initMap() {
-  if (mapInstance) {
-    if (dataFetched) renderMapMarkers();
-    return;
-  }
-
+  if (mapInstance) { if (dataFetched) renderMapMarkers(); return; }
   mapInstance = L.map('map', { zoomControl: true }).setView([25, 15], 2);
-
-  // Standard OpenStreetMap Tile Layer
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(mapInstance);
-
   clusterGroup = L.markerClusterGroup({
-    chunkedLoading: true,
-    maxClusterRadius: 50,
+    chunkedLoading: true, maxClusterRadius: 50,
     iconCreateFunction(cluster) {
-      const count = cluster.getChildCount();
-      const hasVisited = cluster.getAllChildMarkers().some(m => m.options.visited);
-      const bg = hasVisited ? '#2E7D52' : '#1A2744';
-      const border = hasVisited ? '#4CAF78' : '#C8972B';
+      const hasV  = cluster.getAllChildMarkers().some(m => m.options.visited);
+      const bg    = hasV ? '#2E7D52' : '#1A2744';
+      const border = hasV ? '#4CAF78' : '#C8972B';
       return L.divIcon({
-        html: `<div style="
-          background:${bg};
-          border:2px solid ${border};
-          color:#fff;
-          width:36px; height:36px;
-          border-radius:50%;
-          display:flex; align-items:center; justify-content:center;
-          font-size:12px; font-weight:700;
-          box-shadow:0 2px 8px rgba(0,0,0,0.4);
-        ">${count}</div>`,
-        className: '',
-        iconSize: [36, 36]
+        html: `<div style="background:${bg};border:2px solid ${border};color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.4);">${cluster.getChildCount()}</div>`,
+        className: '', iconSize: [36, 36]
       });
     }
   });
   mapInstance.addLayer(clusterGroup);
-
   loadChabadData();
 }
 
@@ -915,114 +797,75 @@ function renderMapMarkers() {
   if (!mapInstance || !clusterGroup) return;
   clusterGroup.clearLayers();
   mapMarkers = [];
-
   CHABAD_HOUSES.forEach(ch => {
-    const visited = isVisited(ch.id);
-    const color    = visited ? '#2E7D52' : '#3B82F6';
-    const ring     = visited ? '#1A5336' : '#1D4ED8';
-    const size     = visited ? 16 : 12;
-
-    const icon = L.divIcon({
+    const v    = isVisited(ch.id);
+    const color = v ? '#2E7D52' : '#3B82F6';
+    const ring  = v ? '#1A5336' : '#1D4ED8';
+    const size  = v ? 16 : 12;
+    const icon  = L.divIcon({
       className: '',
-      html: `<div style="
-        width:${size}px; height:${size}px;
-        border-radius:50%;
-        background:${color};
-        border:2px solid ${ring};
-        box-shadow:0 0 ${visited ? 8 : 4}px ${color}88;
-      "></div>`,
-      iconSize: [size + 4, size + 4],
-      iconAnchor: [(size + 4) / 2, (size + 4) / 2]
+      html: `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${color};border:2px solid ${ring};box-shadow:0 0 ${v?8:4}px ${color}88;"></div>`,
+      iconSize: [size+4, size+4], iconAnchor: [(size+4)/2, (size+4)/2]
     });
-
-    const marker = L.marker([ch.lat, ch.lng], { icon, visited })
+    const marker = L.marker([ch.lat, ch.lng], { icon, visited: v })
       .bindPopup(() => buildPopup(ch));
-
     clusterGroup.addLayer(marker);
     mapMarkers.push(marker);
   });
 }
 
 function buildPopup(ch) {
-  const visited = isVisited(ch.id);
-  const locationLine = [ch.city, ch.country].filter(Boolean).join(', ') || 'Location unknown';
-  const addressLine = ch.address ? `<div style="font-size:10px; color:#6B7280; margin-bottom:4px;">📬 ${ch.address}</div>` : '';
-  const websiteLink = `<a href="https://www.chabad.org/findachabad" target="_blank" style="color:#C8972B; font-size:11px;">🔍 Chabad.org</a>`;
-
-  const toggleBtn = currentUser
-    ? `<button onclick="popupToggleVisit(${ch.id})" style="
-        margin-top:8px; width:100%; padding:7px 10px;
-        background:${visited ? '#DC2626' : '#2E7D52'};
-        color:#fff; border:none; border-radius:6px;
-        font-size:12px; font-weight:700; cursor:pointer;
-      ">${visited ? '✕ Remove Visit' : '✓ Mark as Visited'}</button>`
-    : `<button onclick="openModal('signup')" style="
-        margin-top:8px; width:100%; padding:7px 10px;
-        background:#1A2744; color:#fff; border:none; border-radius:6px;
-        font-size:12px; font-weight:700; cursor:pointer;
-      ">Sign in to log visit</button>`;
-
-  return `<div style="font-family:'Inter',sans-serif; min-width:190px; max-width:230px;">
-    <div style="font-weight:700; font-size:13px; color:#1A2744; margin-bottom:3px; line-height:1.3;">${ch.name}</div>
-    <div style="font-size:11px; color:#6B7280; margin-bottom:5px;">📍 ${locationLine}</div>
-    <div style="font-size:11px; font-weight:700; color:${visited ? '#2E7D52' : '#6B7280'}; margin-bottom:4px;">
-      ${visited ? '✅ Visited' : '⭕ Not visited yet'}
-    </div>
-    ${addressLine}
-    <div style="display:flex; gap:8px; margin-bottom:2px;">
-      ${websiteLink}
-    </div>
-    ${toggleBtn}
+  const v   = isVisited(ch.id);
+  const loc = [ch.city, ch.country].filter(Boolean).join(', ') || 'Location unknown';
+  const addr = ch.address ? `<div style="font-size:10px;color:#6B7280;margin-bottom:4px;">📬 ${ch.address}</div>` : '';
+  const btn  = currentUser
+    ? `<button onclick="popupToggleVisit(${ch.id})" style="margin-top:8px;width:100%;padding:7px 10px;background:${v?'#DC2626':'#2E7D52'};color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;">${v?'✕ Remove Visit':'✓ Mark as Visited'}</button>`
+    : `<button onclick="openModal('signup')" style="margin-top:8px;width:100%;padding:7px 10px;background:#1A2744;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;">Sign in to log visit</button>`;
+  return `<div style="font-family:'Inter',sans-serif;min-width:190px;max-width:230px;">
+    <div style="font-weight:700;font-size:13px;color:#1A2744;margin-bottom:3px;line-height:1.3;">${ch.name}</div>
+    <div style="font-size:11px;color:#6B7280;margin-bottom:5px;">📍 ${loc}</div>
+    <div style="font-size:11px;font-weight:700;color:${v?'#2E7D52':'#6B7280'};margin-bottom:4px;">${v?'✅ Visited':'⭕ Not visited yet'}</div>
+    ${addr}
+    <a href="https://www.chabad.org/findachabad" target="_blank" style="color:#C8972B;font-size:11px;display:block;margin-bottom:2px;">🔍 Chabad.org</a>
+    ${btn}
   </div>`;
 }
 
-function popupToggleVisit(id) {
-  toggleVisit(id);
-  const marker = mapMarkers.find((m, i) => CHABAD_HOUSES[i]?.id === id);
-  if (marker) marker.setPopupContent(buildPopup(CHABAD_HOUSES.find(c => c.id === id)));
+async function popupToggleVisit(id) {
+  await toggleVisit(id);
+  const ch = CHABAD_HOUSES.find(c => c.id === id);
+  const m  = mapMarkers.find((mk, i) => CHABAD_HOUSES[i]?.id === id);
+  if (m && ch) m.setPopupContent(buildPopup(ch));
 }
 
 // ─── LIST ────────────────────────────────────────────────────────────────────
-
-function updateMapMarkers(){ renderMapMarkers(); }
 function renderList() {
-  const q = (document.getElementById('list-search')?.value || '').toLowerCase();
+  const q    = (document.getElementById('list-search')?.value || '').toLowerCase();
   const grid = document.getElementById('chabad-grid');
   if (!grid) return;
-
   if (!dataFetched) {
-    grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem; color:var(--muted);">
-      <div style="font-size:2rem; margin-bottom:0.5rem;">🔄</div>
-      Open the Map tab to load data from the repository.
-    </div>`;
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted);"><div style="font-size:2rem;margin-bottom:0.5rem;">🔄</div>Open the Map tab to load data.</div>`;
     return;
   }
-
-  const filtered = CHABAD_HOUSES.filter(ch => {
-    if (!q) return true;
-    return (ch.name + ' ' + ch.city + ' ' + ch.country).toLowerCase().includes(q);
-  });
-
-  if (filtered.length === 0) {
-    grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem; color:var(--muted);">No results for "<strong>${q}</strong>"</div>`;
+  const filtered = CHABAD_HOUSES.filter(ch => !q || (ch.name+' '+ch.city+' '+ch.country).toLowerCase().includes(q));
+  if (!filtered.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted);">No results for "<strong>${q}</strong>"</div>`;
     return;
   }
-
   const show = filtered.slice(0, 200);
   const more = filtered.length - show.length;
-
   grid.innerHTML = show.map(ch => {
-    const v = isVisited(ch.id);
+    const v   = isVisited(ch.id);
     const loc = [ch.city, ch.country].filter(Boolean).join(', ') || 'Location unknown';
-    return `<div class="chabad-card ${v ? 'visited' : ''}" onclick="cardClick(${ch.id})">
-      <div class="card-icon ${v ? 'visited' : 'unvisited'}">${v ? '✅' : '🕍'}</div>
+    return `<div class="chabad-card ${v?'visited':''}" onclick="cardClick(${ch.id})">
+      <div class="card-icon ${v?'visited':'unvisited'}">${v?'✅':'🕍'}</div>
       <div class="card-body">
         <div class="card-name">${ch.name}</div>
         <div class="card-location">📍 ${loc}</div>
-        <span class="card-badge ${v ? 'badge-visited' : 'badge-not'}">${v ? 'Visited' : 'Not visited'}</span>
+        <span class="card-badge ${v?'badge-visited':'badge-not'}">${v?'Visited':'Not visited'}</span>
       </div>
     </div>`;
-  }).join('') + (more > 0 ? `<div style="grid-column:1/-1; text-align:center; color:var(--muted); font-size:0.85rem; padding:1rem;">+${more.toLocaleString()} more — use search to filter</div>` : '');
+  }).join('') + (more > 0 ? `<div style="grid-column:1/-1;text-align:center;color:var(--muted);font-size:0.85rem;padding:1rem;">+${more.toLocaleString()} more — use search to filter</div>` : '');
 }
 
 function cardClick(id) {
@@ -1031,103 +874,98 @@ function cardClick(id) {
 }
 
 // ─── LEADERBOARD ─────────────────────────────────────────────────────────────
-
 function renderBoard() {
   let entries = [...MOCK_LEADERBOARD];
   if (currentUser) {
     const visited = getVisited().length;
-    const existing = entries.find(e => e.name === currentUser.name);
-    if (!existing) {
-      entries.push({ name: currentUser.name, initials: currentUser.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(), count: visited, isMe: true });
-    } else {
-      existing.count = Math.max(existing.count, visited);
-      existing.isMe = true;
-    }
+    const ex = entries.find(e => e.name === currentUser.name);
+    if (!ex) entries.push({ name: currentUser.name, initials: currentUser.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(), count: visited, isMe: true });
+    else { ex.count = Math.max(ex.count, visited); ex.isMe = true; }
     entries.sort((a,b) => b.count - a.count);
   }
-
   const top3 = entries.slice(0, 3);
-  const podiumOrder = top3.length >= 3 ? [top3[1], top3[0], top3[2]] : top3;
-  const podiumClasses = top3.length >= 3 ? ['p2','p1','p3'] : ['p1','p2','p3'];
-  const podiumH = top3.length >= 3 ? ['65px','90px','50px'] : ['90px','65px','50px'];
+  const ord  = top3.length >= 3 ? [top3[1],top3[0],top3[2]] : top3;
+  const cls  = ['p2','p1','p3'];
+  const hs   = ['58px','78px','44px'];
   const medals = ['🥇','🥈','🥉'];
-  const realRanks = top3.length >= 3 ? [2,1,3] : [1,2,3];
-
-  document.getElementById('podium').innerHTML = podiumOrder.map((p, i) => `
+  const ranks  = [2,1,3];
+  document.getElementById('podium').innerHTML = ord.map((p,i) => `
     <div class="podium-item">
-      <div class="podium-avatar ${podiumClasses[i]}" title="${p.name}">${p.initials}</div>
+      <div class="podium-avatar ${cls[i]}">${p.initials}</div>
       <div class="podium-name">${p.name.split(' ')[0]}</div>
       <div class="podium-count">${p.count} visits</div>
-      <div class="podium-block ${podiumClasses[i]}" style="height:${podiumH[i]}">${medals[realRanks[i]-1]}</div>
-    </div>
-  `).join('');
-
-  document.getElementById('board-list').innerHTML = entries.slice(3).map((e, i) => `
-    <div class="board-row ${e.isMe ? 'me' : ''}">
+      <div class="podium-block ${cls[i]}" style="height:${hs[i]}">${medals[ranks[i]-1]}</div>
+    </div>`).join('');
+  document.getElementById('board-list').innerHTML = entries.slice(3).map((e,i) => `
+    <div class="board-row ${e.isMe?'me':''}">
       <div class="board-rank">${i+4}</div>
       <div class="board-avatar">${e.initials}</div>
-      <div class="board-name">${e.name} ${e.isMe ? '<span class="board-you">YOU</span>' : ''}</div>
+      <div class="board-name">${e.name}${e.isMe?'<span class="board-you">YOU</span>':''}</div>
       <div class="board-count">${e.count}<span>visits</span></div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
 // ─── PROFILE ─────────────────────────────────────────────────────────────────
-
-function toggleProfile() {
-  document.getElementById('profile-bar').classList.toggle('open');
-}
+function toggleProfile() { document.getElementById('profile-bar').classList.toggle('open'); }
 
 function updateProfileBar() {
   if (!currentUser) return;
   const visited = getVisited().length;
-  const total = CHABAD_HOUSES.length;
-  const pct = total > 0 ? Math.round((visited / total) * 100) : 0;
-
-  document.getElementById('prof-avatar').textContent =
-    currentUser.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-  document.getElementById('prof-name').textContent = currentUser.name;
-  document.getElementById('prof-email').textContent = currentUser.email;
+  const total   = CHABAD_HOUSES.length;
+  const pct     = total > 0 ? Math.round((visited/total)*100) : 0;
+  const isLocal = currentUser.mode === 'local';
+  document.getElementById('prof-avatar').textContent = currentUser.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('prof-name').textContent   = currentUser.name;
+  document.getElementById('prof-email').textContent  = currentUser.email;
   document.getElementById('prof-visited').textContent = visited;
-  document.getElementById('prof-total').textContent = dataFetched ? total : '…';
-  document.getElementById('prof-pct').textContent = pct + '%';
-  document.getElementById('prof-fill').style.width = pct + '%';
-
-  const rank = MOCK_LEADERBOARD.filter(e => e.count > visited).length + 1;
-  document.getElementById('prof-rank').textContent = '#' + rank;
+  document.getElementById('prof-total').textContent   = dataFetched ? total : '…';
+  document.getElementById('prof-pct').textContent     = pct + '%';
+  document.getElementById('prof-fill').style.width    = pct + '%';
+  document.getElementById('prof-rank').textContent    = '#' + (MOCK_LEADERBOARD.filter(e => e.count > visited).length + 1);
+  const pb = document.getElementById('prof-mode-badge');
+  pb.textContent  = isLocal ? '💾 Local account' : '☁️ Cloud account';
+  pb.className    = 'auth-mode-badge ' + (isLocal ? 'badge-local' : 'badge-cloud');
+  document.getElementById('upgrade-btn').classList.toggle('hidden', !isLocal || !SUPABASE_ENABLED);
 }
 
 // ─── TOAST ───────────────────────────────────────────────────────────────────
-
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
-
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
   document.getElementById('modal-overlay').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
   });
 
-  currentUser = Store.get('cm_current', null);
-
-  if (currentUser) {
-    const users = getUsers();
-    if (!users[currentUser.email]) {
-      currentUser = null;
-      Store.remove('cm_current');
+  // Restore session
+  const saved = Store.get('cm_current', null);
+  if (saved) {
+    if (saved.mode === 'cloud' && SUPABASE_ENABLED) {
+      // Re-authenticate with Supabase session
+      const { data: { session } } = await sb.auth.getSession();
+      if (session) {
+        currentUser = { ...saved, supabaseId: session.user.id };
+        await loadCloudVisits();
+      } else {
+        Store.del('cm_current');  // session expired
+      }
+    } else if (saved.mode === 'local') {
+      const users = getLocalUsers();
+      if (users[saved.email]) currentUser = saved;
+      else Store.del('cm_current');
     }
   }
 
   updateNavForAuth();
   if (currentUser) updateProfileBar();
   renderBoard();
+  setSignupMode('local');
+  setLoginMode('local');
 });
-
 </script>
 </body>
 </html>
